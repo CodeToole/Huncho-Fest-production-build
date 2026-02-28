@@ -13,17 +13,26 @@ const artistSubmissionSchema = z.object({
     .email("Invalid email address")
     .trim()
     .toLowerCase(),
-  instagramHandle: z.string()
-    .min(1, "Instagram Handle is required")
-    .regex(/^@?[\w.]+$/, "Invalid Instagram Handle format")
-    .transform(val => val.startsWith("@") ? val : `@${val}`)
+  musicLinks: z.string()
+    .trim()
+    .url("Invalid URL format"),
+  city: z.string()
+    .min(1, "City is required")
     .trim(),
+  numberOfTracks: z.enum(["1 Track", "2 Tracks"]),
   googleDriveLink: z.string()
-    .url("Invalid Google Drive Link")
-    .refine(url => url.includes("drive.google.com") || url.includes("docs.google.com"), {
-      message: "Must be a valid Google Drive or Docs link"
-    })
-    .trim(),
+    .trim()
+    .refine(url => {
+      if (!url) return true;
+      try {
+        new URL(url);
+        return url.includes("drive.google.com") || url.includes("docs.google.com");
+      } catch {
+        return false;
+      }
+    }, {
+      message: "If provided, must be a valid Google Drive or Docs link"
+    }),
 });
 
 export type ArtistSubmission = z.infer<typeof artistSubmissionSchema>;
@@ -32,10 +41,12 @@ export async function submitArtist(formData: FormData) {
   try {
     // 1. Extract and Sanitize data
     const rawData = {
-      artistName: formData.get("artistName"),
+      artistName: formData.get("artist_name"),
       email: formData.get("email"),
-      instagramHandle: formData.get("instagramHandle"),
-      googleDriveLink: formData.get("googleDriveLink"),
+      musicLinks: formData.get("music_links"),
+      city: formData.get("city"),
+      googleDriveLink: formData.get("drive_link"),
+      numberOfTracks: formData.get("numberOfTracks"),
     };
 
     // 2. Validate data with Zod
