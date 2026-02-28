@@ -1,6 +1,5 @@
 "use client";
 import { useState } from 'react';
-import { sendGAEvent } from '@next/third-parties/google';
 import { submitArtist } from '@/actions/artist-submission';
 
 export default function ArtistRegistration() {
@@ -8,27 +7,29 @@ export default function ArtistRegistration() {
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const form = e.currentTarget;
-    const formData = new FormData(form);
+    const formData = new FormData(e.currentTarget);
     const numberOfTracks = formData.get("numberOfTracks") as string;
 
-    const result = await submitArtist(formData);
-
-    if (result.success) {
-      sendGAEvent({ event: 'artist_registration_submit', value: 'square_checkout_start' });
-      setIsSubmitted(true);
-
-      setTimeout(() => {
-        if (numberOfTracks === "1 Track") {
-          window.location.assign("https://checkout.square.site/merchant/MLBM34ENB7A3Z/checkout/V7YKVUMWICIJ5FGYYJUZOIYU?src=sheet");
-        } else if (numberOfTracks === "2 Tracks") {
-          window.location.assign("https://checkout.square.site/merchant/MLBM34ENB7A3Z/checkout/KONZMQ5K3W7JOFYQ4VWUHTND?src=sheet");
-        }
-      }, 2500);
-    } else {
-      alert("Please check your form for errors.");
-      console.error(result.errors);
+    // Failsafe: Tell the user if they forgot the dropdown
+    if (!numberOfTracks) {
+      alert("Please select 1 Track or 2 Tracks from the dropdown menu.");
+      return;
     }
+
+    // 1. Show the success message immediately
+    setIsSubmitted(true);
+
+    // 2. Fire to database in the background (Don't let it block the money)
+    submitArtist(formData).catch(err => console.error("Database sync skipped:", err));
+
+    // 3. The Unstoppable Square Redirect
+    setTimeout(() => {
+      if (numberOfTracks === "1 Track") {
+        window.location.assign("https://checkout.square.site/merchant/MLBM34ENB7A3Z/checkout/V7YKVUMWICIJ5FGYYJUZOIYU?src=sheet");
+      } else {
+        window.location.assign("https://checkout.square.site/merchant/MLBM34ENB7A3Z/checkout/KONZMQ5K3W7JOFYQ4VWUHTND?src=sheet");
+      }
+    }, 2000);
   };
 
   return (
@@ -50,39 +51,19 @@ export default function ArtistRegistration() {
               <p className="text-white/80 text-lg md:text-xl font-bold uppercase tracking-widest animate-pulse">Redirecting to secure checkout...</p>
             </div>
           ) : (
-            <form
-              onSubmit={onSubmit}
-              className="grid grid-cols-1 md:grid-cols-2 gap-8"
-            >
+            <form onSubmit={onSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="space-y-3">
                 <label className="block text-xs font-black uppercase text-gold tracking-widest ml-1">Artist/Group Name</label>
-                <input
-                  type="text"
-                  name="artist_name"
-                  required
-                  placeholder="The Huncho"
-                  className="w-full bg-white/5 border border-white/10 px-6 py-5 rounded-2xl focus:border-gold focus:ring-1 focus:ring-gold outline-none text-white transition-all placeholder:text-white/20"
-                />
+                <input type="text" name="artistGroupName" required placeholder="The Huncho" className="w-full bg-white/5 border border-white/10 px-6 py-5 rounded-2xl focus:border-gold focus:ring-1 focus:ring-gold outline-none text-white transition-all placeholder:text-white/20" />
               </div>
               <div className="space-y-3">
                 <label className="block text-xs font-black uppercase text-gold tracking-widest ml-1">Email Address</label>
-                <input
-                  type="email"
-                  name="email"
-                  required
-                  placeholder="artist@example.com"
-                  className="w-full bg-white/5 border border-white/10 px-6 py-5 rounded-2xl focus:border-gold focus:ring-1 focus:ring-gold outline-none text-white transition-all placeholder:text-white/20"
-                />
+                <input type="email" name="emailAddress" required placeholder="artist@example.com" className="w-full bg-white/5 border border-white/10 px-6 py-5 rounded-2xl focus:border-gold focus:ring-1 focus:ring-gold outline-none text-white transition-all placeholder:text-white/20" />
               </div>
 
               <div className="space-y-3 md:col-span-2">
                 <label className="block text-xs font-black uppercase text-gold tracking-widest ml-1">Number of Tracks to Perform</label>
-                <select
-                  name="numberOfTracks"
-                  required
-                  defaultValue=""
-                  className="w-full bg-white/5 border border-white/10 px-6 py-5 rounded-2xl focus:border-gold focus:ring-1 focus:ring-gold outline-none text-white transition-all appearance-none cursor-pointer"
-                >
+                <select name="numberOfTracks" required defaultValue="" className="w-full bg-white/5 border border-white/10 px-6 py-5 rounded-2xl focus:border-gold focus:ring-1 focus:ring-gold outline-none text-white transition-all appearance-none cursor-pointer">
                   <option value="" disabled className="text-charcoal bg-white/90">Select number of tracks</option>
                   <option value="1 Track" className="text-charcoal bg-white">1 Track - $60</option>
                   <option value="2 Tracks" className="text-charcoal bg-white">2 Tracks - $100</option>
@@ -91,59 +72,21 @@ export default function ArtistRegistration() {
 
               <div className="space-y-3 md:col-span-2">
                 <label className="block text-xs font-black uppercase text-gold tracking-widest ml-1">Google Drive Link to Track (Optional)</label>
-                <input
-                  type="url"
-                  name="drive_link"
-                  placeholder="https://drive.google.com/..."
-                  className="w-full bg-white/5 border border-white/10 px-6 py-5 rounded-2xl focus:border-gold focus:ring-1 focus:ring-gold outline-none text-white transition-all placeholder:text-white/20"
-                />
-                <p className="text-[10px] text-white/40 font-bold uppercase tracking-widest ml-1 mb-2">
-                  *Ensure access is set to &quot;Anyone with the link&quot;
-                </p>
-                <div className="bg-charcoal/50 border border-gold/30 p-4 rounded-xl mt-2">
-                  <p className="text-sm font-bold text-white/90">
-                    If you do not have a Google Drive link, complete this form to pay your registration fee, then immediately email your track to <span className="text-gold font-black">Hunchofest@gmail.com</span> with the subject line <span className="text-purple font-black">HUNCHO FEST TRACK SUBMISSION - [Your Artist Name]</span>.
-                  </p>
-                </div>
+                <input type="url" name="driveLink" placeholder="https://drive.google.com/..." className="w-full bg-white/5 border border-white/10 px-6 py-5 rounded-2xl focus:border-gold focus:ring-1 focus:ring-gold outline-none text-white transition-all placeholder:text-white/20" />
               </div>
 
               <div className="space-y-3 md:col-span-2">
                 <label className="block text-xs font-black uppercase text-gold tracking-widest ml-1">Music Links (Spotify/YouTube)</label>
-                <input
-                  type="url"
-                  name="music_links"
-                  required
-                  placeholder="https://..."
-                  className="w-full bg-white/5 border border-white/10 px-6 py-5 rounded-2xl focus:border-gold focus:ring-1 focus:ring-gold outline-none text-white transition-all placeholder:text-white/20"
-                />
+                <input type="url" name="musicLinks" required placeholder="https://..." className="w-full bg-white/5 border border-white/10 px-6 py-5 rounded-2xl focus:border-gold focus:ring-1 focus:ring-gold outline-none text-white transition-all placeholder:text-white/20" />
               </div>
               <div className="space-y-3 md:col-span-2">
                 <label className="block text-xs font-black uppercase text-gold tracking-widest ml-1">Hometown City</label>
-                <input
-                  type="text"
-                  name="city"
-                  required
-                  placeholder="Mobile, AL"
-                  className="w-full bg-white/5 border border-white/10 px-6 py-5 rounded-2xl focus:border-gold focus:ring-1 focus:ring-gold outline-none text-white transition-all placeholder:text-white/20"
-                />
+                <input type="text" name="hometownCity" required placeholder="Mobile, AL" className="w-full bg-white/5 border border-white/10 px-6 py-5 rounded-2xl focus:border-gold focus:ring-1 focus:ring-gold outline-none text-white transition-all placeholder:text-white/20" />
               </div>
 
-              <div className="md:col-span-2 bg-purple/5 border border-purple/20 p-6 rounded-2xl mt-4">
-                <p className="text-xs md:text-sm text-white/70 leading-relaxed font-bold uppercase tracking-wider text-center">
-                  Email alternative: <span className="text-gold">Hunchofest@gmail.com</span><br />
-                  Subject: <span className="text-purple">HUNCHO FEST SUBMISSION - [Name]</span>
-                </p>
-              </div>
-
-              <button
-                type="submit"
-                className="md:col-span-2 bg-gold text-charcoal px-10 py-6 text-xl font-black rounded-2xl hover:bg-white transition-all duration-300 shadow-[0_0_30px_rgba(255,184,0,0.15)] uppercase mt-8 active:scale-[0.98]"
-              >
+              <button type="submit" className="md:col-span-2 bg-gold text-charcoal px-10 py-6 text-xl font-black rounded-2xl hover:bg-white transition-all duration-300 shadow-[0_0_30px_rgba(255,184,0,0.15)] uppercase mt-8 active:scale-[0.98]">
                 Secure Performance Spot
               </button>
-              <p className="md:col-span-2 text-center text-white/30 text-[10px] font-bold uppercase tracking-[0.2em] mt-6">
-                * Non-refundable registration fee processed via Square Secure
-              </p>
             </form>
           )}
         </div>
