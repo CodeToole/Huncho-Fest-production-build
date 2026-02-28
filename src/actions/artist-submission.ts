@@ -68,17 +68,14 @@ export async function submitArtist(formData: FormData) {
       };
 
       await db.collection('mail').add({
-        to: submissionData.emailAddress, // The email the artist entered in the form
+        to: submissionData.emailAddress,
         message: {
           subject: "Registration Confirmed - Huncho Fest 2026",
-          html: `<h1>You're Locked In!</h1>
-           <p>Thank you for registering for Huncho Fest, ${submissionData.artistGroupName}. We have successfully received your information and track selection.</p>
-           <p>If you have any questions, reply directly to this email.</p>
-           <br><p>- The Huncho Fest Team</p>`
+          html: "<h1>You're Locked In!</h1><p>Thank you for registering for Huncho Fest, " + submissionData.artistGroupName + ".</p><p>We have successfully received your information and track selection.</p><p>If you have any questions, reply directly to this email.</p><br><p>- The Huncho Fest Team</p>"
         }
       });
     } catch (emailError) {
-      console.error("Non-fatal email error (Mail Extension):", emailError);
+      console.error("Failed to queue confirmation email:", emailError);
     }
 
     return {
