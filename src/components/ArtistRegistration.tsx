@@ -20,9 +20,9 @@ export default function ArtistRegistration() {
 
       setTimeout(() => {
         if (numberOfTracks === "1 Track") {
-          window.location.assign("https://square.link/u/hy2YzQ0o?src=sheet");
+          window.location.assign("https://checkout.square.site/merchant/MLBM34ENB7A3Z/checkout/V7YKVUMWICIJ5FGYYJUZOIYU?src=sheet");
         } else if (numberOfTracks === "2 Tracks") {
-          window.location.assign("https://square.link/u/FmIxZoXc?src=sheet");
+          window.location.assign("https://checkout.square.site/merchant/MLBM34ENB7A3Z/checkout/KONZMQ5K3W7JOFYQ4VWUHTND?src=sheet");
         }
       }, 2500);
     } else {
