@@ -1,0 +1,4 @@
+.env.local.example
+service-account.json
+.next
+node_modules
