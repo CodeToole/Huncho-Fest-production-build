@@ -1,9 +1,4 @@
 export default function Media() {
-  const youtubeVideos = [
-    { id: 'placeholder-1', title: 'Interview 1' },
-    { id: 'placeholder-2', title: 'Live Performance' },
-  ];
-
   return (
     <section id="media" className="py-24 bg-charcoal text-white relative">
       <div className="absolute inset-0 bg-purple/5 pointer-events-none"></div>
@@ -12,19 +7,8 @@ export default function Media() {
         <p className="text-white/60 font-bold uppercase text-xs tracking-[0.3em] mb-12 text-center">Experience the Vibes</p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-20">
-          {youtubeVideos.map((video) => (
-            <div key={video.id} className="group relative aspect-video bg-black rounded-2xl overflow-hidden shadow-2xl border-2 border-white/5 hover:border-purple transition-all duration-500">
-              <iframe
-                className="w-full h-full opacity-80 group-hover:opacity-100 transition-opacity duration-500"
-                src={`https://www.youtube.com/embed/${video.id}`}
-                title={video.title}
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                loading="lazy"
-              ></iframe>
-            </div>
-          ))}
+          <iframe className="w-full aspect-video rounded-xl" src="https://www.youtube.com/embed/Bs6K408y_38?si=bGuqADA3YdxnSjps" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
+          <iframe className="w-full aspect-video rounded-xl" src="https://www.youtube.com/embed/YYTiVtlXGlU?si=xktl88nNj9eYLm1H" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
         </div>
 
         <div className="flex flex-col md:flex-row gap-8 justify-center items-center text-center py-12 border-t border-white/5">

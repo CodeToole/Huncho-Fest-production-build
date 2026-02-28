@@ -72,8 +72,8 @@ export default function ArtistRegistration() {
                 className="w-full bg-white/5 border border-white/10 px-6 py-5 rounded-2xl focus:border-gold focus:ring-1 focus:ring-gold outline-none text-white transition-all appearance-none cursor-pointer"
               >
                 <option value="" disabled className="text-charcoal bg-white/90">Select number of tracks</option>
-                <option value="1 Track" className="text-charcoal bg-white">1 Track</option>
-                <option value="2 Tracks" className="text-charcoal bg-white">2 Tracks</option>
+                <option value="1 Track" className="text-charcoal bg-white">1 Track - $60</option>
+                <option value="2 Tracks" className="text-charcoal bg-white">2 Tracks - $100</option>
               </select>
             </div>
 
@@ -90,7 +90,7 @@ export default function ArtistRegistration() {
               </p>
               <div className="bg-charcoal/50 border border-gold/30 p-4 rounded-xl mt-2">
                 <p className="text-sm font-bold text-white/90">
-                  If you do not have a Google Drive link, complete this form to pay your registration fee, then immediately email your track to <span className="text-gold font-black">Nmbgjay@hunchofest.com</span> with the subject line <span className="text-purple font-black">HUNCHO FEST TRACK SUBMISSION - [Your Artist Name]</span>.
+                  If you do not have a Google Drive link, complete this form to pay your registration fee, then immediately email your track to <span className="text-gold font-black">Hunchofest@gmail.com</span> with the subject line <span className="text-purple font-black">HUNCHO FEST TRACK SUBMISSION - [Your Artist Name]</span>.
                 </p>
               </div>
             </div>
@@ -118,7 +118,7 @@ export default function ArtistRegistration() {
 
             <div className="md:col-span-2 bg-purple/5 border border-purple/20 p-6 rounded-2xl mt-4">
               <p className="text-xs md:text-sm text-white/70 leading-relaxed font-bold uppercase tracking-wider text-center">
-                Email alternative: <span className="text-gold">Nmbgjay@hunchofest.com</span><br />
+                Email alternative: <span className="text-gold">Hunchofest@gmail.com</span><br />
                 Subject: <span className="text-purple">HUNCHO FEST SUBMISSION - [Name]</span>
               </p>
             </div>
