@@ -3,7 +3,7 @@ import Hero from "@/components/Hero";
 import Tickets from "@/components/Tickets";
 import Media from "@/components/Media";
 import ArtistRegistration from "@/components/ArtistRegistration";
-import Sponsorships from "@/components/Sponsorships";
+import Newsletter from "@/components/Newsletter";
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -14,7 +14,7 @@ export default function Home() {
       <Tickets />
       <Media />
       <ArtistRegistration />
-      <Sponsorships />
+      <Newsletter />
       <Footer />
     </main>
   );
