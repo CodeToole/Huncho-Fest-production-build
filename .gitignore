@@ -46,3 +46,4 @@ service-account.json
 
 service-account.json
 test-db.js
+.env*.local

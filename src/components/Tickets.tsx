@@ -1,15 +1,17 @@
 "use client";
 import { useEffect, useState } from 'react';
 import { sendGAEvent } from '@next/third-parties/google';
+import CountdownTimer from './CountdownTimer';
 
 export default function Tickets() {
+  const FESTIVAL_START_TIME = new Date('2026-03-14T15:00:00-05:00');
   const fallbackUrl = "https://www.eventbrite.com/e/huncho-fest-mardi-gras-park-tickets-1980752329538";
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
   }, []);
-  
+
   return (
     <section id="tickets" className="py-24 bg-charcoal text-white relative overflow-hidden">
       <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-gold/30 to-transparent"></div>
@@ -19,8 +21,12 @@ export default function Tickets() {
           <p className="text-lg md:text-xl font-medium text-white/80 max-w-2xl mx-auto leading-relaxed">
             Secure your spot at the Mardi Gras hip-hop event of the year in the heart of Mobile, AL.
           </p>
+          <CountdownTimer
+            targetDate={FESTIVAL_START_TIME}
+            expiredMessage="The festival has started!"
+          />
         </div>
-        
+
         <div className="flex flex-col items-center">
           <div className="w-full max-w-4xl bg-white/5 p-2 sm:p-4 rounded-2xl shadow-2xl overflow-hidden border border-white/10 aspect-[4/5] sm:aspect-[16/10] md:min-h-[500px]">
             {/* Eventbrite iframe placeholder */}
@@ -45,10 +51,10 @@ export default function Tickets() {
               )}
             </div>
           </div>
-          
+
           <div className="mt-12 text-center">
             <p className="text-white/60 mb-6 font-bold uppercase text-xs tracking-widest">Problems viewing the ticket widget?</p>
-            <a 
+            <a
               href={fallbackUrl}
               target="_blank"
               rel="noopener noreferrer"

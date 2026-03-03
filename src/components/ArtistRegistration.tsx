@@ -1,12 +1,18 @@
 "use client";
 import { useState } from 'react';
 import { submitArtist } from '@/actions/artist-submission';
+import CountdownTimer from './CountdownTimer';
 
 export default function ArtistRegistration() {
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isLocked, setIsLocked] = useState(false);
+
+  const FESTIVAL_START_TIME = new Date('2026-03-14T15:00:00-05:00');
+  const REGISTRATION_CLOSE_TIME = new Date('2026-03-14T17:00:00-05:00');
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (isLocked) return;
     const formData = new FormData(e.currentTarget);
     const numberOfTracks = formData.get("numberOfTracks") as string;
 
@@ -41,6 +47,13 @@ export default function ArtistRegistration() {
         <p className="text-white/60 font-bold uppercase text-xs tracking-[0.3em] mb-12 text-center">Take the Main Stage</p>
 
         <div className="bg-charcoal border-2 border-purple p-6 md:p-12 rounded-[2.5rem] shadow-[0_20px_50px_rgba(112,26,255,0.1)] backdrop-blur-xl">
+          <div className="mb-8">
+            <CountdownTimer
+              targetDate={REGISTRATION_CLOSE_TIME}
+              expiredMessage="Registration Closed"
+              onExpire={() => setIsLocked(true)}
+            />
+          </div>
           <p className="text-center text-lg md:text-xl mb-12 text-white/90 font-medium leading-relaxed">
             Join the biggest hip-hop event in the city. Secure your spot on the main stage at Mardi Gras Park, Mobile, AL.
           </p>
@@ -51,42 +64,52 @@ export default function ArtistRegistration() {
               <p className="text-white/80 text-lg md:text-xl font-bold uppercase tracking-widest animate-pulse">Redirecting to secure checkout...</p>
             </div>
           ) : (
-            <form onSubmit={onSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="space-y-3">
-                <label className="block text-xs font-black uppercase text-gold tracking-widest ml-1">Artist/Group Name</label>
-                <input type="text" name="artistGroupName" required placeholder="The Huncho" className="w-full bg-white/5 border border-white/10 px-6 py-5 rounded-2xl focus:border-gold focus:ring-1 focus:ring-gold outline-none text-white transition-all placeholder:text-white/20" />
-              </div>
-              <div className="space-y-3">
-                <label className="block text-xs font-black uppercase text-gold tracking-widest ml-1">Email Address</label>
-                <input type="email" name="emailAddress" required placeholder="artist@example.com" className="w-full bg-white/5 border border-white/10 px-6 py-5 rounded-2xl focus:border-gold focus:ring-1 focus:ring-gold outline-none text-white transition-all placeholder:text-white/20" />
-              </div>
+            <form onSubmit={onSubmit}>
+              <fieldset disabled={isLocked} className="grid grid-cols-1 md:grid-cols-2 gap-8 relative overflow-hidden p-1 rounded-2xl">
+                {isLocked && (
+                  <div className="absolute inset-0 z-20 bg-charcoal/70 backdrop-blur-sm flex items-center justify-center">
+                    <p className="text-2xl font-black text-white/50 uppercase tracking-widest border-2 border-white/10 p-4 bg-charcoal shadow-2xl rounded-xl">Registration Closed</p>
+                  </div>
+                )}
+                <div className="space-y-3">
+                  <label className="block text-xs font-black uppercase text-gold tracking-widest ml-1">Artist/Group Name</label>
+                  <input type="text" name="artistGroupName" required placeholder="The Huncho" className="w-full bg-white/5 border border-white/10 px-6 py-5 rounded-2xl focus:border-gold focus:ring-1 focus:ring-gold outline-none text-white transition-all placeholder:text-white/20 disabled:opacity-50 disabled:cursor-not-allowed" />
+                </div>
+                <div className="space-y-3">
+                  <label className="block text-xs font-black uppercase text-gold tracking-widest ml-1">Email Address</label>
+                  <input type="email" name="emailAddress" required placeholder="artist@example.com" className="w-full bg-white/5 border border-white/10 px-6 py-5 rounded-2xl focus:border-gold focus:ring-1 focus:ring-gold outline-none text-white transition-all placeholder:text-white/20 disabled:opacity-50 disabled:cursor-not-allowed" />
+                </div>
 
-              <div className="space-y-3 md:col-span-2">
-                <label className="block text-xs font-black uppercase text-gold tracking-widest ml-1">Number of Tracks to Perform</label>
-                <select name="numberOfTracks" required defaultValue="" className="w-full bg-white/5 border border-white/10 px-6 py-5 rounded-2xl focus:border-gold focus:ring-1 focus:ring-gold outline-none text-white transition-all appearance-none cursor-pointer">
-                  <option value="" disabled className="text-charcoal bg-white/90">Select number of tracks</option>
-                  <option value="1 Track" className="text-charcoal bg-white">1 Track - $60</option>
-                  <option value="2 Tracks" className="text-charcoal bg-white">2 Tracks - $100</option>
-                </select>
-              </div>
+                <div className="space-y-3 md:col-span-2">
+                  <label className="block text-xs font-black uppercase text-gold tracking-widest ml-1">Number of Tracks to Perform</label>
+                  <select name="numberOfTracks" required defaultValue="" className="w-full bg-white/5 border border-white/10 px-6 py-5 rounded-2xl focus:border-gold focus:ring-1 focus:ring-gold outline-none text-white transition-all appearance-none cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed">
+                    <option value="" disabled className="text-charcoal bg-white/90">Select number of tracks</option>
+                    <option value="1 Track" className="text-charcoal bg-white">1 Track - $60</option>
+                    <option value="2 Tracks" className="text-charcoal bg-white">2 Tracks - $100</option>
+                  </select>
+                </div>
 
-              <div className="space-y-3 md:col-span-2">
-                <label className="block text-xs font-black uppercase text-gold tracking-widest ml-1">Google Drive Link to Track (Optional)</label>
-                <input type="url" name="driveLink" placeholder="https://drive.google.com/..." className="w-full bg-white/5 border border-white/10 px-6 py-5 rounded-2xl focus:border-gold focus:ring-1 focus:ring-gold outline-none text-white transition-all placeholder:text-white/20" />
-              </div>
+                <div className="space-y-3 md:col-span-2">
+                  <label className="block text-xs font-black uppercase text-gold tracking-widest ml-1">Google Drive Link to Track (Optional)</label>
+                  <input type="url" name="driveLink" placeholder="https://drive.google.com/..." className="w-full bg-white/5 border border-white/10 px-6 py-5 rounded-2xl focus:border-gold focus:ring-1 focus:ring-gold outline-none text-white transition-all placeholder:text-white/20 disabled:opacity-50 disabled:cursor-not-allowed" />
+                  <span className="block text-xs text-white/70 mt-2 px-2 italic font-medium">
+                    If you do not have a Google Drive link, please email your track directly to Hunchofest@gmail.com.
+                  </span>
+                </div>
 
-              <div className="space-y-3 md:col-span-2">
-                <label className="block text-xs font-black uppercase text-gold tracking-widest ml-1">Music Links (Spotify/YouTube)</label>
-                <input type="url" name="musicLinks" required placeholder="https://..." className="w-full bg-white/5 border border-white/10 px-6 py-5 rounded-2xl focus:border-gold focus:ring-1 focus:ring-gold outline-none text-white transition-all placeholder:text-white/20" />
-              </div>
-              <div className="space-y-3 md:col-span-2">
-                <label className="block text-xs font-black uppercase text-gold tracking-widest ml-1">Hometown City</label>
-                <input type="text" name="hometownCity" required placeholder="Mobile, AL" className="w-full bg-white/5 border border-white/10 px-6 py-5 rounded-2xl focus:border-gold focus:ring-1 focus:ring-gold outline-none text-white transition-all placeholder:text-white/20" />
-              </div>
+                <div className="space-y-3 md:col-span-2">
+                  <label className="block text-xs font-black uppercase text-gold tracking-widest ml-1">Music Links (Spotify/YouTube)</label>
+                  <input type="url" name="musicLinks" required placeholder="https://..." className="w-full bg-white/5 border border-white/10 px-6 py-5 rounded-2xl focus:border-gold focus:ring-1 focus:ring-gold outline-none text-white transition-all placeholder:text-white/20 disabled:opacity-50 disabled:cursor-not-allowed" />
+                </div>
+                <div className="space-y-3 md:col-span-2">
+                  <label className="block text-xs font-black uppercase text-gold tracking-widest ml-1">Hometown City</label>
+                  <input type="text" name="hometownCity" required placeholder="Mobile, AL" className="w-full bg-white/5 border border-white/10 px-6 py-5 rounded-2xl focus:border-gold focus:ring-1 focus:ring-gold outline-none text-white transition-all placeholder:text-white/20 disabled:opacity-50 disabled:cursor-not-allowed" />
+                </div>
 
-              <button type="submit" className="md:col-span-2 bg-gold text-charcoal px-10 py-6 text-xl font-black rounded-2xl hover:bg-white transition-all duration-300 shadow-[0_0_30px_rgba(255,184,0,0.15)] uppercase mt-8 active:scale-[0.98]">
-                Secure Performance Spot
-              </button>
+                <button type="submit" disabled={isLocked} className="md:col-span-2 bg-gold text-charcoal px-10 py-6 text-xl font-black rounded-2xl hover:bg-white disabled:hover:bg-gold disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 shadow-[0_0_30px_rgba(255,184,0,0.15)] disabled:shadow-none uppercase mt-8 active:scale-[0.98] disabled:active:scale-100">
+                  Secure Performance Spot
+                </button>
+              </fieldset>
             </form>
           )}
         </div>
