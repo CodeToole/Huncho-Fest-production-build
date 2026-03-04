@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { useState, useRef, useTransition } from "react";
 import { subscribeToNewsletter } from "@/actions/newsletter-submission";
