@@ -1,20 +1,26 @@
 "use client";
 
-import { useState, useRef } from "react";
-import { submitNewsletter } from "@/actions/newsletter-submission";
+import { useState, useRef, useTransition } from "react";
+import { subscribeToNewsletter } from "@/actions/newsletter-submission";
 
 export default function Newsletter() {
     const [isSubmitted, setIsSubmitted] = useState(false);
+    const [error, setError] = useState<string | null>(null);
     const formRef = useRef<HTMLFormElement>(null);
+    const [isPending, startTransition] = useTransition();
 
     async function action(formData: FormData) {
-        const result = await submitNewsletter(formData);
+        setError(null);
+        startTransition(async () => {
+            const result = await subscribeToNewsletter(formData);
 
-        if (result.success) {
-            setIsSubmitted(true);
-        } else {
-            console.error(result.message);
-        }
+            if (result.success) {
+                setIsSubmitted(true);
+            } else {
+                setError(result.message || "Failed to subscribe.");
+                console.error(result.message);
+            }
+        });
     }
 
     return (
@@ -36,22 +42,29 @@ export default function Newsletter() {
                                 Be the first to know about artist announcements, ticket drops, and exclusive festival updates.
                             </p>
                             <form ref={formRef} action={action} className="space-y-8 max-w-md mx-auto">
+                                {error && (
+                                    <div className="bg-red-500/10 border border-red-500/20 text-red-400 px-4 py-3 rounded-xl text-sm font-medium text-center">
+                                        {error}
+                                    </div>
+                                )}
                                 <div className="space-y-3">
                                     <label className="block text-xs font-black uppercase text-gold tracking-widest ml-1">Email Address</label>
                                     <input
                                         name="email"
                                         type="email"
                                         required
+                                        disabled={isPending}
                                         placeholder="your@email.com"
-                                        className="w-full bg-white/5 border border-white/10 px-6 py-5 rounded-2xl focus:border-purple focus:ring-1 focus:ring-purple outline-none text-white transition-all placeholder:text-white/20"
+                                        className="w-full bg-white/5 border border-white/10 px-6 py-5 rounded-2xl focus:border-purple focus:ring-1 focus:ring-purple outline-none text-white transition-all placeholder:text-white/20 disabled:opacity-50"
                                     />
                                 </div>
 
                                 <button
                                     type="submit"
-                                    className="w-full bg-purple text-white px-10 py-6 text-xl font-black rounded-2xl hover:bg-white hover:text-purple transition-all duration-300 shadow-2xl shadow-purple/20 uppercase active:scale-[0.98]"
+                                    disabled={isPending}
+                                    className="w-full bg-purple text-white px-10 py-6 text-xl font-black rounded-2xl hover:bg-white hover:text-purple transition-all duration-300 shadow-2xl shadow-purple/20 uppercase active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
                                 >
-                                    Subscribe
+                                    {isPending ? "Subscribing..." : "Subscribe"}
                                 </button>
                             </form>
                         </>

@@ -8,7 +8,7 @@ const newsletterSchema = z.object({
   email: z.string().email("Invalid email address").trim().toLowerCase(),
 });
 
-export async function submitNewsletter(formData: FormData) {
+export async function subscribeToNewsletter(formData: FormData) {
   try {
     const rawData = {
       email: formData.get("email"),
