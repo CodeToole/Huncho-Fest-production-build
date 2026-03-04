@@ -4,8 +4,8 @@ export default function StructuredData() {
     "@type": "MusicEvent",
     "name": "Huncho Fest",
     "description": "The premier hip-hop festival in the heart of Mobile, AL during Mardi Gras season at Mardi Gras Park.",
-    "startDate": "2026-02-27T18:00:00-06:00",
-    "endDate": "2026-02-28T00:00:00-06:00",
+    "startDate": "2026-03-15T18:00:00-05:00",
+    "endDate": "2026-03-16T00:00:00-05:00",
     "eventStatus": "https://schema.org/EventScheduled",
     "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
     "location": {

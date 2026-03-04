@@ -7,8 +7,8 @@ export default function ArtistRegistration() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLocked, setIsLocked] = useState(false);
 
-  const FESTIVAL_START_TIME = new Date('2026-03-14T15:00:00-05:00');
-  const REGISTRATION_CLOSE_TIME = new Date('2026-03-14T17:00:00-05:00');
+  const FESTIVAL_START_TIME = new Date('2026-03-15T15:00:00-05:00');
+  const REGISTRATION_CLOSE_TIME = new Date('2026-03-15T17:00:00-05:00');
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -73,11 +73,11 @@ export default function ArtistRegistration() {
                 )}
                 <div className="space-y-3">
                   <label className="block text-xs font-black uppercase text-gold tracking-widest ml-1">Artist/Group Name</label>
-                  <input type="text" name="artistGroupName" required placeholder="The Huncho" className="w-full bg-white/5 border border-white/10 px-6 py-5 rounded-2xl focus:border-gold focus:ring-1 focus:ring-gold outline-none text-white transition-all placeholder:text-white/20 disabled:opacity-50 disabled:cursor-not-allowed" />
+                  <input type="text" name="artist_name" required placeholder="The Huncho" className="w-full bg-white/5 border border-white/10 px-6 py-5 rounded-2xl focus:border-gold focus:ring-1 focus:ring-gold outline-none text-white transition-all placeholder:text-white/20 disabled:opacity-50 disabled:cursor-not-allowed" />
                 </div>
                 <div className="space-y-3">
                   <label className="block text-xs font-black uppercase text-gold tracking-widest ml-1">Email Address</label>
-                  <input type="email" name="emailAddress" required placeholder="artist@example.com" className="w-full bg-white/5 border border-white/10 px-6 py-5 rounded-2xl focus:border-gold focus:ring-1 focus:ring-gold outline-none text-white transition-all placeholder:text-white/20 disabled:opacity-50 disabled:cursor-not-allowed" />
+                  <input type="email" name="email" required placeholder="artist@example.com" className="w-full bg-white/5 border border-white/10 px-6 py-5 rounded-2xl focus:border-gold focus:ring-1 focus:ring-gold outline-none text-white transition-all placeholder:text-white/20 disabled:opacity-50 disabled:cursor-not-allowed" />
                 </div>
 
                 <div className="space-y-3 md:col-span-2">
@@ -91,19 +91,19 @@ export default function ArtistRegistration() {
 
                 <div className="space-y-3 md:col-span-2">
                   <label className="block text-xs font-black uppercase text-gold tracking-widest ml-1">Google Drive Link to Track (Optional)</label>
-                  <input type="url" name="driveLink" placeholder="https://drive.google.com/..." className="w-full bg-white/5 border border-white/10 px-6 py-5 rounded-2xl focus:border-gold focus:ring-1 focus:ring-gold outline-none text-white transition-all placeholder:text-white/20 disabled:opacity-50 disabled:cursor-not-allowed" />
+                  <input type="url" name="drive_link" placeholder="https://drive.google.com/..." className="w-full bg-white/5 border border-white/10 px-6 py-5 rounded-2xl focus:border-gold focus:ring-1 focus:ring-gold outline-none text-white transition-all placeholder:text-white/20 disabled:opacity-50 disabled:cursor-not-allowed" />
                   <span className="block text-xs text-white/70 mt-2 px-2 italic font-medium">
-                    If you do not have a Google Drive link, please email your track directly to Hunchofest@gmail.com.
+                    If you do not have a Google Drive link, please email your track directly to noreply@hunchofest.com.
                   </span>
                 </div>
 
                 <div className="space-y-3 md:col-span-2">
                   <label className="block text-xs font-black uppercase text-gold tracking-widest ml-1">Music Links (Spotify/YouTube) (Optional)</label>
-                  <input type="url" name="musicLinks" placeholder="https://... (Optional)" className="w-full bg-white/5 border border-white/10 px-6 py-5 rounded-2xl focus:border-gold focus:ring-1 focus:ring-gold outline-none text-white transition-all placeholder:text-white/20 disabled:opacity-50 disabled:cursor-not-allowed" />
+                  <input type="url" name="music_links" placeholder="https://... (Optional)" className="w-full bg-white/5 border border-white/10 px-6 py-5 rounded-2xl focus:border-gold focus:ring-1 focus:ring-gold outline-none text-white transition-all placeholder:text-white/20 disabled:opacity-50 disabled:cursor-not-allowed" />
                 </div>
                 <div className="space-y-3 md:col-span-2">
                   <label className="block text-xs font-black uppercase text-gold tracking-widest ml-1">Hometown City</label>
-                  <input type="text" name="hometownCity" required placeholder="Mobile, AL" className="w-full bg-white/5 border border-white/10 px-6 py-5 rounded-2xl focus:border-gold focus:ring-1 focus:ring-gold outline-none text-white transition-all placeholder:text-white/20 disabled:opacity-50 disabled:cursor-not-allowed" />
+                  <input type="text" name="city" required placeholder="Mobile, AL" className="w-full bg-white/5 border border-white/10 px-6 py-5 rounded-2xl focus:border-gold focus:ring-1 focus:ring-gold outline-none text-white transition-all placeholder:text-white/20 disabled:opacity-50 disabled:cursor-not-allowed" />
                 </div>
 
                 <button type="submit" disabled={isLocked} className="md:col-span-2 bg-gold text-charcoal px-10 py-6 text-xl font-black rounded-2xl hover:bg-white disabled:hover:bg-gold disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 shadow-[0_0_30px_rgba(255,184,0,0.15)] disabled:shadow-none uppercase mt-8 active:scale-[0.98] disabled:active:scale-100">
