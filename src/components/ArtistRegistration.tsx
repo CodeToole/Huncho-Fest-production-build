@@ -98,8 +98,8 @@ export default function ArtistRegistration() {
                 </div>
 
                 <div className="space-y-3 md:col-span-2">
-                  <label className="block text-xs font-black uppercase text-gold tracking-widest ml-1">Music Links (Spotify/YouTube)</label>
-                  <input type="url" name="musicLinks" required placeholder="https://..." className="w-full bg-white/5 border border-white/10 px-6 py-5 rounded-2xl focus:border-gold focus:ring-1 focus:ring-gold outline-none text-white transition-all placeholder:text-white/20 disabled:opacity-50 disabled:cursor-not-allowed" />
+                  <label className="block text-xs font-black uppercase text-gold tracking-widest ml-1">Music Links (Spotify/YouTube) (Optional)</label>
+                  <input type="url" name="musicLinks" placeholder="https://... (Optional)" className="w-full bg-white/5 border border-white/10 px-6 py-5 rounded-2xl focus:border-gold focus:ring-1 focus:ring-gold outline-none text-white transition-all placeholder:text-white/20 disabled:opacity-50 disabled:cursor-not-allowed" />
                 </div>
                 <div className="space-y-3 md:col-span-2">
                   <label className="block text-xs font-black uppercase text-gold tracking-widest ml-1">Hometown City</label>

@@ -13,9 +13,7 @@ const artistSubmissionSchema = z.object({
     .email("Invalid email address")
     .trim()
     .toLowerCase(),
-  musicLinks: z.string()
-    .trim()
-    .url("Invalid URL format"),
+  musicLinks: z.string().url().optional().or(z.literal('')),
   city: z.string()
     .min(1, "City is required")
     .trim(),
