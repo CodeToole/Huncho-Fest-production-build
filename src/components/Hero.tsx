@@ -1,22 +1,19 @@
 import Link from 'next/link';
-import Image from 'next/image';
 
 export default function Hero() {
   return (
     <section className="relative h-screen min-h-[600px] flex items-center justify-center bg-charcoal text-white overflow-hidden">
-      <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-b from-purple/40 via-charcoal/60 to-charcoal z-10"></div>
-        <Image
-          src="/hero-bg.jpg"
-          alt="Huncho Fest Crowd"
-          fill
-          priority
-          quality={85}
-          className="object-cover opacity-30 grayscale hover:grayscale-0 transition-all duration-700"
-        />
-      </div>
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        src="/hero-bg.mov"
+        className="absolute inset-0 w-full h-full object-cover z-0"
+      />
+      <div className="absolute inset-0 bg-black/60 z-0"></div>
 
-      <div className="relative z-20 text-center px-6 max-w-4xl mx-auto">
+      <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
         <h1 className="text-5xl sm:text-6xl md:text-8xl font-black mb-6 tracking-tighter text-gold animate-in fade-in slide-in-from-bottom-4 duration-1000">
           HUNCHO FEST
         </h1>
