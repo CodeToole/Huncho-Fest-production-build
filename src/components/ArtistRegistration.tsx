@@ -28,6 +28,12 @@ export default function ArtistRegistration() {
     // 2. Fire to database in the background (Don't let it block the money)
     submitArtist(formData).catch(err => console.error("Database sync skipped:", err));
 
+    // Save pending artist data for post-checkout welcome email
+    const artistName = formData.get("artist_name") as string;
+    const email = formData.get("email") as string;
+    if (artistName) localStorage.setItem("hf_pending_artist_name", artistName);
+    if (email) localStorage.setItem("hf_pending_artist_email", email);
+
     // 3. The Unstoppable Square Redirect
     setTimeout(() => {
       if (numberOfTracks === "1 Track") {
