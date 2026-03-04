@@ -59,24 +59,6 @@ export async function submitArtist(formData: FormData) {
       submittedAt: new Date().toISOString(),
     });
 
-    // 4. Trigger Firebase Email Extension
-    try {
-      // Map validated data to expected payload variables
-      const submissionData = {
-        emailAddress: validatedData.email,
-        artistGroupName: validatedData.artistName
-      };
-
-      await db.collection('mail').add({
-        to: submissionData.emailAddress,
-        message: {
-          subject: "Registration Confirmed - Huncho Fest 2026",
-          html: "<h1>You're Locked In!</h1><p>Thank you for registering for Huncho Fest, " + submissionData.artistGroupName + ".</p><p>We have successfully received your information and track selection.</p><p>If you have any questions, reply directly to this email.</p><br><p>- The Huncho Fest Team</p>"
-        }
-      });
-    } catch (emailError) {
-      console.error("Failed to queue confirmation email:", emailError);
-    }
 
     return {
       success: true,
