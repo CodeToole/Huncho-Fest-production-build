@@ -7,13 +7,15 @@ export default function Newsletter() {
     const [isSubmitted, setIsSubmitted] = useState(false);
     const formRef = useRef<HTMLFormElement>(null);
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        setIsSubmitted(true);
+    async function action(formData: FormData) {
+        const result = await submitNewsletter(formData);
 
-        const formData = new FormData(e.currentTarget);
-        submitNewsletter(formData).catch(console.error);
-    };
+        if (result.success) {
+            setIsSubmitted(true);
+        } else {
+            console.error(result.message);
+        }
+    }
 
     return (
         <section id="newsletter" className="py-24 bg-charcoal text-white relative overflow-hidden">
@@ -33,7 +35,7 @@ export default function Newsletter() {
                             <p className="text-center text-lg md:text-xl mb-12 text-white/80 font-medium leading-relaxed">
                                 Be the first to know about artist announcements, ticket drops, and exclusive festival updates.
                             </p>
-                            <form ref={formRef} onSubmit={handleSubmit} className="space-y-8 max-w-md mx-auto">
+                            <form ref={formRef} action={action} className="space-y-8 max-w-md mx-auto">
                                 <div className="space-y-3">
                                     <label className="block text-xs font-black uppercase text-gold tracking-widest ml-1">Email Address</label>
                                     <input
