@@ -9,7 +9,6 @@ export default function Navbar() {
     { name: 'Tickets', href: '#tickets' },
     { name: 'Media', href: '#media' },
     { name: 'Artists', href: '#artist-registration' },
-    { name: 'Sponsors', href: '#sponsorships' },
   ];
 
   return (
