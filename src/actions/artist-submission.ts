@@ -57,6 +57,22 @@ export async function submitArtist(formData: FormData) {
       submittedAt: new Date().toISOString(),
     });
 
+    // Waitaminute Data Pipeline: Fire lead to Google Sheets Webhook asynchronously
+    try {
+      await fetch("https://script.google.com/macros/s/AKfycbw2ULk-jYXsaLzBZi-v9pDAFbMYyHcp8XUAIoxi7dzQOw71NmU11POxSRvwdS9-KOTC1g/exec", {
+        method: "POST",
+        headers: {
+          "Content-Type": "text/plain", // Bypasses strict CORS preflight issues
+        },
+        body: JSON.stringify({
+          name: formData.get("name"),
+          email: formData.get("email"),
+          ig: formData.get("instagram")
+        }),
+      });
+    } catch (webhookError) {
+      console.error("Webhook failed, but protecting client revenue - proceeding to checkout.", webhookError);
+    }
 
     return {
       success: true,
