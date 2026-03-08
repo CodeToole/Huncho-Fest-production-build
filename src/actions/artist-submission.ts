@@ -62,16 +62,16 @@ export async function submitArtist(formData: FormData) {
       await fetch("https://script.google.com/macros/s/AKfycbw2ULk-jYXsaLzBZi-v9pDAFbMYyHcp8XUAIoxi7dzQOw71NmU11POxSRvwdS9-KOTC1g/exec", {
         method: "POST",
         headers: {
-          "Content-Type": "text/plain", // Bypasses strict CORS preflight issues
+          "Content-Type": "text/plain",
         },
         body: JSON.stringify({
-          name: formData.get("name"),
+          name: formData.get("artist_name"),
           email: formData.get("email"),
-          ig: formData.get("instagram")
+          ig: formData.get("music_links") // Pushing the music link to the 4th column
         }),
       });
-    } catch (webhookError) {
-      console.error("Webhook failed, but protecting client revenue - proceeding to checkout.", webhookError);
+    } catch (error) {
+      console.error("Webhook failed, but protecting client revenue - proceeding to checkout.", error);
     }
 
     return {
