@@ -56,6 +56,22 @@ export async function sendWelcomeEmail(email: string, artistName?: string) {
       return { success: false, message: "Failed to send welcome email." };
     }
 
+    // Trigger Google Workspace CLI to log the ROI
+    try {
+      const { exec } = await import("child_process");
+      const { promisify } = await import("util");
+      const execAsync = promisify(exec);
+
+      const timestamp = new Date().toISOString();
+      const sheetCommand = `gws sheets append "1E_9MTY9AT9Mzz-Y3QQzVBLTFW-aU9WlqCSgHZVMJaAQ" "huncho Lead Conversion" "${timestamp},${validatedData.email},${displayName},Welcome Email Sent"`;
+
+      await execAsync(sheetCommand);
+      console.log(`Successfully logged ROI for ${validatedData.email}`);
+    } catch (gwsError) {
+      console.error("Failed to log ROI via GWS CLI:", gwsError);
+      // We don't fail the whole process if just the logging fails
+    }
+
     return { success: true, message: "Welcome email sent successfully." };
   } catch (error) {
     if (error instanceof z.ZodError) {
