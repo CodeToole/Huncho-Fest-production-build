@@ -4,23 +4,24 @@ import { z } from "zod";
 import { resend } from "@/lib/resend";
 
 const welcomeSchema = z.object({
-    email: z.string().email("Invalid email address").trim().toLowerCase(),
-    artistName: z.string().min(1, "Artist name is required").trim(),
+  email: z.string().email("Invalid email address").trim().toLowerCase(),
+  artistName: z.string().trim().optional(),
 });
 
-export async function sendWelcomeEmail(email: string, artistName: string) {
-    try {
-        const validatedData = welcomeSchema.parse({ email, artistName });
+export async function sendWelcomeEmail(email: string, artistName?: string) {
+  try {
+    const validatedData = welcomeSchema.parse({ email, artistName });
+    const displayName = validatedData.artistName || "Artist";
 
-        const { error } = await resend.emails.send({
-            from: "Huncho Fest <noreply@hunchofest.com>",
-            to: validatedData.email,
-            subject: "Welcome to Huncho Fest 2026! 🚀 (Important Next Steps)",
-            html: `
+    const { error } = await resend.emails.send({
+      from: "Huncho Fest <noreply@hunchofest.com>",
+      to: validatedData.email,
+      subject: "Welcome to Huncho Fest 2026! 🚀 (Important Next Steps)",
+      html: `
         <div style="background-color: #1a1a1a; color: #ffffff; font-family: Helvetica, Arial, sans-serif; padding: 40px 20px; text-align: center;">
           <div style="max-width: 600px; margin: 0 auto; background-color: #2a2a2a; border-radius: 16px; padding: 40px; border: 2px solid #701AFF;">
             <h1 style="color: #FFB800; font-size: 32px; font-weight: 900; text-transform: uppercase; margin-top: 0; font-style: italic; letter-spacing: -1px;">
-              WHAT'S GOOD, ${validatedData.artistName.toUpperCase()}! 🔥
+              WHAT'S GOOD, ${displayName.toUpperCase()}! 🔥
             </h1>
             <p style="font-size: 18px; line-height: 1.6; color: rgba(255,255,255,0.9); margin-bottom: 30px;">
               You're officially locked in for <strong>Huncho Fest 2026</strong>! We're hyped to have you on the roster and can't wait to see you tear up the stage. The city is ready.
@@ -48,23 +49,23 @@ export async function sendWelcomeEmail(email: string, artistName: string) {
           </div>
         </div>
       `,
-        });
+    });
 
-        if (error) {
-            console.error("Resend API error sending welcome email:", error);
-            return { success: false, message: "Failed to send welcome email." };
-        }
-
-        return { success: true, message: "Welcome email sent successfully." };
-    } catch (error) {
-        if (error instanceof z.ZodError) {
-            return {
-                success: false,
-                message: error.issues[0]?.message || "Invalid input data.",
-            };
-        }
-
-        console.error("Error sending welcome email:", error);
-        return { success: false, message: "An unexpected error occurred." };
+    if (error) {
+      console.error("Resend API error sending welcome email:", error);
+      return { success: false, message: "Failed to send welcome email." };
     }
+
+    return { success: true, message: "Welcome email sent successfully." };
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      return {
+        success: false,
+        message: error.issues[0]?.message || "Invalid input data.",
+      };
+    }
+
+    console.error("Error sending welcome email:", error);
+    return { success: false, message: "An unexpected error occurred." };
+  }
 }
