@@ -2,6 +2,7 @@
 
 import { db } from "@/lib/firebase/firebase-admin";
 import { z } from "zod";
+import { resend } from "@/lib/resend";
 
 // Schema for Artist Submission with robust validation
 const artistSubmissionSchema = z.object({
@@ -50,33 +51,61 @@ export async function submitArtist(formData: FormData) {
     // 2. Validate data with Zod
     const validatedData = artistSubmissionSchema.parse(rawData);
 
-    // 3. Store in Firestore (Server-side only)
-    const submissionRef = await db.collection("artist_registrations").add({
+    // 3. Perform integrations in parallel (Firestore, Webhook, Resend)
+    const audienceId = process.env.RESEND_AUDIENCE_ID;
+
+    const firestorePromise = db.collection("artist_registrations").add({
       ...validatedData,
       status: "pending",
       submittedAt: new Date().toISOString(),
     });
 
     // Waitaminute Data Pipeline: Fire lead to Google Sheets Webhook asynchronously
-    try {
-      await fetch("https://script.google.com/macros/s/AKfycbw2ULk-jYXsaLzBZi-v9pDAFbMYyHcp8XUAIoxi7dzQOw71NmU11POxSRvwdS9-KOTC1g/exec", {
-        method: "POST",
-        headers: {
-          "Content-Type": "text/plain",
-        },
-        body: JSON.stringify({
-          name: formData.get("artist_name"),
-          email: formData.get("email"),
-          ig: formData.get("music_links") // Pushing the music link to the 4th column
-        }),
-      });
-    } catch (error) {
-      console.error("Webhook failed, but protecting client revenue - proceeding to checkout.", error);
+    const webhookPromise = fetch("https://script.google.com/macros/s/AKfycbw2ULk-jYXsaLzBZi-v9pDAFbMYyHcp8XUAIoxi7dzQOw71NmU11POxSRvwdS9-KOTC1g/exec", {
+      method: "POST",
+      headers: {
+        "Content-Type": "text/plain",
+      },
+      body: JSON.stringify({
+        name: validatedData.artistName,
+        email: validatedData.email,
+        ig: validatedData.musicLinks || "" // Pushing the music link to the 4th column
+      }),
+    }).then(res => {
+      if (!res.ok) throw new Error(`Webhook responded with status ${res.status}`);
+      return res;
+    });
+
+    // Capture lead into Resend Audience
+    const resendPromise = audienceId
+      ? resend.contacts.create({
+          email: validatedData.email,
+          firstName: validatedData.artistName,
+          audienceId: audienceId,
+        })
+      : Promise.resolve();
+
+    const [firestoreResult, webhookResult, resendResult] = await Promise.allSettled([
+      firestorePromise,
+      webhookPromise,
+      resendPromise,
+    ]);
+
+    if (firestoreResult.status === "rejected") {
+       throw firestoreResult.reason;
+    }
+
+    if (webhookResult.status === "rejected") {
+       console.error("Webhook failed, but protecting client revenue - proceeding to checkout.", webhookResult.reason);
+    }
+
+    if (resendResult.status === "rejected") {
+       console.error("Failed to add artist to Resend Audience:", resendResult.reason);
     }
 
     return {
       success: true,
-      id: submissionRef.id,
+      id: firestoreResult.value.id,
       message: "Submission received successfully! We'll reach out soon.",
     };
   } catch (error) {
