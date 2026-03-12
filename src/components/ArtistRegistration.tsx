@@ -38,6 +38,23 @@ export default function ArtistRegistration() {
       if (email) localStorage.setItem("hf_pending_artist_email", email);
 
       // 3. The Unstoppable Square Redirect - Now in finally block
+    // Save pending artist data for post-checkout welcome email
+    const artistName = formData.get("artist_name") as string;
+    const email = formData.get("email") as string;
+    if (artistName) localStorage.setItem("hf_pending_artist_name", artistName);
+    if (email) localStorage.setItem("hf_pending_artist_email", email);
+
+    try {
+      // 2. Fire to database in the background but race against a 1.5s timeout
+      // This ensures we attempt to capture the lead on the server before redirecting,
+      // but "absolutely cannot be blocked or delayed by a slow response"
+      const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error("Timeout")), 1500));
+      timeoutPromise.catch(() => {}); // Prevent UnhandledPromiseRejection if submitArtist finishes first
+      await Promise.race([submitArtist(formData), timeoutPromise]);
+    } catch (err) {
+      console.error("Database sync skipped or timed out:", err);
+    } finally {
+      // 3. The Unstoppable Square Redirect
       if (numberOfTracks === "1 Track") {
         window.location.assign("https://checkout.square.site/merchant/MLBM34ENB7A3Z/checkout/V7YKVUMWICIJ5FGYYJUZOIYU?src=sheet");
       } else {
