@@ -40,12 +40,12 @@ export async function submitArtist(formData: FormData) {
   try {
     // 1. Extract and Sanitize data
     const rawData = {
-      artistName: formData.get("artist_name"),
-      email: formData.get("email"),
-      musicLinks: formData.get("music_links"),
-      city: formData.get("city"),
-      googleDriveLink: formData.get("drive_link"),
-      numberOfTracks: formData.get("numberOfTracks"),
+      artistName: String(formData.get("artist_name") || "").trim(),
+      email: String(formData.get("email") || "").trim(),
+      musicLinks: String(formData.get("music_links") || "").trim(),
+      city: String(formData.get("city") || "").trim(),
+      googleDriveLink: String(formData.get("drive_link") || "").trim(),
+      numberOfTracks: String(formData.get("numberOfTracks") || "").trim(),
     };
 
     // 2. Validate data with Zod

@@ -25,6 +25,19 @@ export default function ArtistRegistration() {
     // 1. Show the success message immediately
     setIsSubmitted(true);
 
+    try {
+      // 2. Fire to database but await to ensure no race conditions before redirect
+      await submitArtist(formData);
+    } catch (err) {
+      console.error("Database sync skipped or failed:", err);
+    } finally {
+      // Save pending artist data for post-checkout welcome email
+      const artistName = formData.get("artist_name") as string;
+      const email = formData.get("email") as string;
+      if (artistName) localStorage.setItem("hf_pending_artist_name", artistName);
+      if (email) localStorage.setItem("hf_pending_artist_email", email);
+
+      // 3. The Unstoppable Square Redirect - Now in finally block
     // Save pending artist data for post-checkout welcome email
     const artistName = formData.get("artist_name") as string;
     const email = formData.get("email") as string;
