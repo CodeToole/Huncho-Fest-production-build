@@ -25,23 +25,25 @@ export default function ArtistRegistration() {
     // 1. Show the success message immediately
     setIsSubmitted(true);
 
-    // 2. Fire to database in the background (Don't let it block the money)
-    submitArtist(formData).catch(err => console.error("Database sync skipped:", err));
+    try {
+      // 2. Fire to database but await to ensure no race conditions before redirect
+      await submitArtist(formData);
+    } catch (err) {
+      console.error("Database sync skipped or failed:", err);
+    } finally {
+      // Save pending artist data for post-checkout welcome email
+      const artistName = formData.get("artist_name") as string;
+      const email = formData.get("email") as string;
+      if (artistName) localStorage.setItem("hf_pending_artist_name", artistName);
+      if (email) localStorage.setItem("hf_pending_artist_email", email);
 
-    // Save pending artist data for post-checkout welcome email
-    const artistName = formData.get("artist_name") as string;
-    const email = formData.get("email") as string;
-    if (artistName) localStorage.setItem("hf_pending_artist_name", artistName);
-    if (email) localStorage.setItem("hf_pending_artist_email", email);
-
-    // 3. The Unstoppable Square Redirect
-    setTimeout(() => {
+      // 3. The Unstoppable Square Redirect - Now in finally block
       if (numberOfTracks === "1 Track") {
         window.location.assign("https://checkout.square.site/merchant/MLBM34ENB7A3Z/checkout/V7YKVUMWICIJ5FGYYJUZOIYU?src=sheet");
       } else {
         window.location.assign("https://checkout.square.site/merchant/MLBM34ENB7A3Z/checkout/KONZMQ5K3W7JOFYQ4VWUHTND?src=sheet");
       }
-    }, 2000);
+    }
   };
 
   return (

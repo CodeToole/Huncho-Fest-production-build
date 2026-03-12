@@ -10,7 +10,10 @@ const welcomeSchema = z.object({
 
 export async function sendWelcomeEmail(email: string, artistName?: string) {
   try {
-    const validatedData = welcomeSchema.parse({ email, artistName });
+    const validatedData = welcomeSchema.parse({
+      email: String(email || "").trim(),
+      artistName: artistName ? String(artistName).trim() : undefined,
+    });
     const displayName = validatedData.artistName || "Artist";
 
     const { error } = await resend.emails.send({

@@ -11,7 +11,7 @@ const newsletterSchema = z.object({
 export async function subscribeToNewsletter(formData: FormData) {
   try {
     const rawData = {
-      email: formData.get("email"),
+      email: String(formData.get("email") || "").trim(),
     };
 
     const validatedData = newsletterSchema.parse(rawData);
