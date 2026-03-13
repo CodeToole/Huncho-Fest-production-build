@@ -1,6 +1,6 @@
 "use server";
 
-import { resend } from "@/lib/resend";
+import * as postmark from "postmark";
 
 export async function sendRecoveryEmail(email: string, name: string, tracks: number) {
   try {
@@ -9,11 +9,13 @@ export async function sendRecoveryEmail(email: string, name: string, tracks: num
       : "https://square.link/u/hy2YzQ0o?src=sheet";
     const priceText = tracks === 2 ? "$100 for 2 tracks" : "$60 for 1 track";
 
-    const data = await resend.emails.send({
-      from: "Huncho Fest <noreply@hunchofest.com>",
-      to: email,
-      subject: "Complete Your Registration - Huncho Fest 2026",
-      html: `
+    const postmarkClient = new postmark.ServerClient(process.env.POSTMARK_SERVER_TOKEN || "");
+    const data = await postmarkClient.sendEmail({
+      From: "hello@waitaminutedigital.com",
+      To: email,
+      Subject: "Complete Your Registration - Huncho Fest 2026",
+      MessageStream: "outbound",
+      HtmlBody: `
         <div style="background-color: #1a1a1a; color: #ffffff; font-family: Helvetica, Arial, sans-serif; padding: 40px 20px; text-align: center;">
           <div style="max-width: 600px; margin: 0 auto; background-color: #2a2a2a; border-radius: 16px; padding: 40px; border: 2px solid #701AFF;">
             <h1 style="color: #FFB800; font-size: 32px; font-weight: 900; text-transform: uppercase; margin-top: 0; font-style: italic; letter-spacing: -1px;">

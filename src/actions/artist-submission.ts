@@ -2,7 +2,7 @@
 
 import { db } from "@/lib/firebase/firebase-admin";
 import { z } from "zod";
-import { resend } from "@/lib/resend";
+import * as postmark from "postmark";
 
 // Schema for Artist Submission with robust validation
 const artistSubmissionSchema = z.object({
@@ -51,8 +51,7 @@ export async function submitArtist(formData: FormData) {
     // 2. Validate data with Zod
     const validatedData = artistSubmissionSchema.parse(rawData);
 
-    // 3. Perform integrations in parallel (Firestore, Webhook, Resend)
-    const audienceId = process.env.RESEND_AUDIENCE_ID;
+    // 3. Perform integrations in parallel (Firestore, Webhook, Email)
 
     const firestorePromise = db.collection("artist_registrations").add({
       ...validatedData,
@@ -76,19 +75,21 @@ export async function submitArtist(formData: FormData) {
       return res;
     });
 
-    // Capture lead into Resend Audience
-    const resendPromise = audienceId
-      ? resend.contacts.create({
-          email: validatedData.email,
-          firstName: validatedData.artistName,
-          audienceId: audienceId,
-        })
-      : Promise.resolve();
+    // Initialize the client using your secure environment variable
+    const postmarkClient = new postmark.ServerClient(process.env.POSTMARK_SERVER_TOKEN || "");
 
-    const [firestoreResult, webhookResult, resendResult] = await Promise.allSettled([
+    const postmarkPromise = postmarkClient.sendEmail({
+      "From": "cornelius@waitaminutedigital.com", // Must be your verified sender
+      "To": validatedData.email,
+      "Subject": "Huncho Fest: VIP Artist Registration Confirmed",
+      "HtmlBody": "<strong>Welcome to the lineup!</strong> Your slot is pending. Complete your payment to lock it in.",
+      "MessageStream": "outbound" 
+    });
+
+    const [firestoreResult, webhookResult, emailResult] = await Promise.allSettled([
       firestorePromise,
       webhookPromise,
-      resendPromise,
+      postmarkPromise,
     ]);
 
     if (firestoreResult.status === "rejected") {
@@ -99,8 +100,8 @@ export async function submitArtist(formData: FormData) {
        console.error("Webhook failed, but protecting client revenue - proceeding to checkout.", webhookResult.reason);
     }
 
-    if (resendResult.status === "rejected") {
-       console.error("Failed to add artist to Resend Audience:", resendResult.reason);
+    if (emailResult.status === "rejected") {
+       console.error("Postmark failed, proceeding to checkout:", emailResult.reason);
     }
 
     return {

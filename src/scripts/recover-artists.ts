@@ -20,7 +20,7 @@ async function runRecoveryBlast() {
         }
     }
 
-    console.log("🏁 Blast Complete. Check Resend dashboard for opens.");
+    console.log("🏁 Blast Complete. Check Postmark dashboard for opens.");
 }
 
 runRecoveryBlast();

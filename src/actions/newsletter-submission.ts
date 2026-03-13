@@ -1,7 +1,7 @@
 "use server";
 
 import { z } from "zod";
-import { resend } from "@/lib/resend";
+import * as postmark from "postmark";
 import { db } from "@/lib/firebase/firebase-admin";
 
 const newsletterSchema = z.object({
@@ -16,30 +16,6 @@ export async function subscribeToNewsletter(formData: FormData) {
 
     const validatedData = newsletterSchema.parse(rawData);
 
-    const audienceId = process.env.RESEND_AUDIENCE_ID;
-
-    if (!audienceId) {
-      console.error("RESEND_AUDIENCE_ID is not set");
-      return {
-        success: false,
-        message: "Server configuration error. Please try again later.",
-      };
-    }
-
-    // Add to Resend audience list
-    const { error: contactsError } = await resend.contacts.create({
-      email: validatedData.email,
-      audienceId: audienceId,
-    });
-
-    if (contactsError) {
-      console.error("Resend Audience API error:", contactsError);
-      return {
-        success: false,
-        message: "Failed to subscribe. Please try again later.",
-      };
-    }
-
     // Optional legacy steps: Keep Firestore record and Welcome Email
     try {
       await db.collection("newsletter_subscribers").add({
@@ -47,11 +23,13 @@ export async function subscribeToNewsletter(formData: FormData) {
         createdAt: new Date().toISOString(),
       });
 
-      await resend.emails.send({
-        from: "Huncho Fest <noreply@hunchofest.com>",
-        to: validatedData.email,
-        subject: "Welcome to the List - Huncho Fest 2026",
-        html: `
+      const postmarkClient = new postmark.ServerClient(process.env.POSTMARK_SERVER_TOKEN || "");
+      await postmarkClient.sendEmail({
+        From: "hello@waitaminutedigital.com",
+        To: validatedData.email,
+        Subject: "Welcome to the List - Huncho Fest 2026",
+        MessageStream: "outbound",
+        HtmlBody: `
             <div style="background-color: #1a1a1a; color: #ffffff; font-family: Helvetica, Arial, sans-serif; padding: 40px 20px; text-align: center;">
               <div style="max-width: 600px; margin: 0 auto; background-color: #2a2a2a; border-radius: 16px; padding: 40px; border: 2px solid #701AFF;">
                 <h1 style="color: #FFB800; font-size: 32px; font-weight: 900; text-transform: uppercase; margin-top: 0; font-style: italic; letter-spacing: -1px;">

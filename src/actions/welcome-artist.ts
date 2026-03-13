@@ -1,7 +1,7 @@
 "use server";
 
 import { z } from "zod";
-import { resend } from "@/lib/resend";
+import * as postmark from "postmark";
 
 const welcomeSchema = z.object({
   email: z.string().email("Invalid email address").trim().toLowerCase(),
@@ -16,11 +16,14 @@ export async function sendWelcomeEmail(email: string, artistName?: string) {
     });
     const displayName = validatedData.artistName || "Artist";
 
-    const { error } = await resend.emails.send({
-      from: "Huncho Fest <noreply@hunchofest.com>",
-      to: validatedData.email,
-      subject: "Welcome to Huncho Fest 2026! 🚀 (Important Next Steps)",
-      html: `
+    const postmarkClient = new postmark.ServerClient(process.env.POSTMARK_SERVER_TOKEN || "");
+    try {
+      await postmarkClient.sendEmail({
+        From: "hello@waitaminutedigital.com",
+        To: validatedData.email,
+        Subject: "Welcome to Huncho Fest 2026! 🚀 (Important Next Steps)",
+        MessageStream: "outbound",
+        HtmlBody: `
         <div style="background-color: #1a1a1a; color: #ffffff; font-family: Helvetica, Arial, sans-serif; padding: 40px 20px; text-align: center;">
           <div style="max-width: 600px; margin: 0 auto; background-color: #2a2a2a; border-radius: 16px; padding: 40px; border: 2px solid #701AFF;">
             <h1 style="color: #FFB800; font-size: 32px; font-weight: 900; text-transform: uppercase; margin-top: 0; font-style: italic; letter-spacing: -1px;">
@@ -52,10 +55,9 @@ export async function sendWelcomeEmail(email: string, artistName?: string) {
           </div>
         </div>
       `,
-    });
-
-    if (error) {
-      console.error("Resend API error sending welcome email:", error);
+      });
+    } catch (error) {
+      console.error("Postmark API error sending welcome email:", error);
       return { success: false, message: "Failed to send welcome email." };
     }
 
