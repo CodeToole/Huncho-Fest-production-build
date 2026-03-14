@@ -15,16 +15,16 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Huncho Fest | Mobile, AL Mardi Gras Hip-Hop Festival",
-  description: "Experience the biggest hip-hop event of the Mardi Gras season in Mobile, AL. Tickets, artist registration, and live media for Huncho Fest at Mardi Gras Park.",
-  keywords: ["Huncho Fest", "Mobile Alabama", "Mardi Gras", "Hip-Hop Festival", "AL Hip-Hop", "Mardi Gras Park", "Live Music Mobile AL"],
+  title: "Huncho Fest | Largest Music Festival in Mobile, AL",
+  description: "Experience the biggest music festival in Mobile, AL. Tickets, artist registration, and live media for Huncho Fest at Mardi Gras Park.",
+  keywords: ["Huncho Fest", "Mobile Alabama", "Music Festival", "Mobile Entertainment", "Gulf Coast Music", "Mardi Gras Park", "Live Music Mobile AL"],
   metadataBase: new URL("https://hunchofest.com"),
   alternates: {
     canonical: "/",
   },
   openGraph: {
-    title: "Huncho Fest | Mobile, AL Mardi Gras Hip-Hop Festival",
-    description: "The premier hip-hop festival in the heart of Mobile, AL during Mardi Gras.",
+    title: "Huncho Fest | Largest Music Festival in Mobile, AL",
+    description: "The biggest music festival in the heart of Mobile, AL.",
     url: "https://hunchofest.com",
     siteName: "Huncho Fest",
     images: [
@@ -40,8 +40,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Huncho Fest | Mobile, AL Mardi Gras Hip-Hop Festival",
-    description: "The premier hip-hop festival in the heart of Mobile, AL during Mardi Gras.",
+    title: "Huncho Fest | Largest Music Festival in Mobile, AL",
+    description: "The biggest music festival in the heart of Mobile, AL.",
     images: ["/og-image.jpg"],
   },
   robots: {

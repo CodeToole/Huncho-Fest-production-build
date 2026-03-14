@@ -19,7 +19,7 @@ export default function Tickets() {
         <div className="mb-16 text-center">
           <h2 className="text-4xl md:text-6xl font-black text-gold mb-4 uppercase tracking-tighter">Tickets</h2>
           <p className="text-lg md:text-xl font-medium text-white/80 max-w-2xl mx-auto leading-relaxed">
-            Secure your spot at the Mardi Gras hip-hop event of the year in the heart of Mobile, AL.
+            Secure your spot at the biggest music festival in Mobile.
           </p>
           <CountdownTimer
             targetDate={FESTIVAL_START_TIME}

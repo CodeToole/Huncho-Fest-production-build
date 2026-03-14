@@ -1,7 +1,7 @@
 "use server";
 
 import { z } from "zod";
-import * as postmark from "postmark";
+import { postmarkClient, FROM_EMAIL } from "@/lib/postmark";
 
 const welcomeSchema = z.object({
   email: z.string().email("Invalid email address").trim().toLowerCase(),
@@ -16,10 +16,9 @@ export async function sendWelcomeEmail(email: string, artistName?: string) {
     });
     const displayName = validatedData.artistName || "Artist";
 
-    const postmarkClient = new postmark.ServerClient(process.env.POSTMARK_SERVER_TOKEN || "");
     try {
       await postmarkClient.sendEmail({
-        From: "hello@waitaminutedigital.com",
+        From: FROM_EMAIL,
         To: validatedData.email,
         Subject: "Welcome to Huncho Fest 2026! 🚀 (Important Next Steps)",
         MessageStream: "outbound",
@@ -61,27 +60,20 @@ export async function sendWelcomeEmail(email: string, artistName?: string) {
       return { success: false, message: "Failed to send welcome email." };
     }
 
-    // Trigger Google Workspace CLI to log the ROI
+    // Lead Pipeline: Fire to Google Sheets Webhook
     try {
-      const { execFile } = await import("child_process");
-      const { promisify } = await import("util");
-      const execFileAsync = promisify(execFile);
-
-      const timestamp = new Date().toISOString();
-      const csvRow = `${timestamp},${validatedData.email},${displayName},Welcome Email Sent`;
-
-      // Use execFile to prevent command injection
-      await execFileAsync("gws", [
-        "sheets",
-        "append",
-        "1E_9MTY9AT9Mzz-Y3QQzVBLTFW-aU9WlqCSgHZVMJaAQ",
-        "huncho Lead Conversion",
-        csvRow
-      ]);
-      console.log(`Successfully logged ROI for ${validatedData.email}`);
-    } catch (gwsError) {
-      console.error("Failed to log ROI via GWS CLI:", gwsError);
-      // We don't fail the whole process if just the logging fails
+      await fetch("https://script.google.com/macros/s/AKfycbw2ULk-jYXsaLzBZi-v9pDAFbMYyHcp8XUAIoxi7dzQOw71NmU11POxSRvwdS9-KOTC1g/exec", {
+        method: "POST",
+        headers: { "Content-Type": "text/plain" },
+        body: JSON.stringify({
+          name: displayName,
+          email: validatedData.email,
+          notes: "Welcome Email Sent"
+        }),
+      });
+      console.log(`Successfully logged lead status for ${validatedData.email}`);
+    } catch (logError) {
+      console.error("Failed to log lead status to Sheets:", logError);
     }
 
     return { success: true, message: "Welcome email sent successfully." };

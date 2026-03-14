@@ -18,7 +18,7 @@ export default function Hero() {
           HUNCHO FEST
         </h1>
         <p className="text-lg sm:text-xl md:text-2xl font-bold mb-10 text-white/90 uppercase tracking-widest max-w-2xl mx-auto leading-tight">
-          The Biggest Hip-Hop Festival in Mobile, AL
+          The Biggest Music Festival in Mobile
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-stretch sm:items-center">
           <Link

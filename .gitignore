@@ -47,3 +47,6 @@ service-account.json
 service-account.json
 test-db.js
 .env*.local
+
+# Google Sheets Service Account
+service-account.json

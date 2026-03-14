@@ -13,7 +13,7 @@ export default function Footer() {
             HUNCHO FEST
           </Link>
           <p className="text-white/60 font-medium max-w-sm leading-relaxed">
-            Mobile, Alabama's premier Mardi Gras hip-hop festival experience.
+            Mobile, Alabama's biggest music festival experience.
             Celebrating culture, music, and the Gulf Coast.
           </p>
           <div className="flex gap-6">

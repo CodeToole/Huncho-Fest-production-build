@@ -25,7 +25,7 @@ export async function subscribeToNewsletter(formData: FormData) {
 
       const postmarkClient = new postmark.ServerClient(process.env.POSTMARK_SERVER_TOKEN || "");
       await postmarkClient.sendEmail({
-        From: "hello@waitaminutedigital.com",
+        From: "info@hunchofest.com",
         To: validatedData.email,
         Subject: "Welcome to the List - Huncho Fest 2026",
         MessageStream: "outbound",

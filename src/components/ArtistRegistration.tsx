@@ -67,7 +67,7 @@ export default function ArtistRegistration() {
             />
           </div>
           <p className="text-center text-lg md:text-xl mb-12 text-white/90 font-medium leading-relaxed">
-            Join the biggest hip-hop event in the city. Secure your spot on the main stage at Mardi Gras Park, Mobile, AL.
+            Join the biggest music festival in Mobile. Secure your spot on the main stage at Mardi Gras Park, Mobile, AL.
           </p>
 
           {isSubmitted ? (

@@ -11,7 +11,7 @@ export async function sendRecoveryEmail(email: string, name: string, tracks: num
 
     const postmarkClient = new postmark.ServerClient(process.env.POSTMARK_SERVER_TOKEN || "");
     const data = await postmarkClient.sendEmail({
-      From: "hello@waitaminutedigital.com",
+      From: "info@hunchofest.com",
       To: email,
       Subject: "Complete Your Registration - Huncho Fest 2026",
       MessageStream: "outbound",

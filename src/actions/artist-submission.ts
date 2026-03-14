@@ -2,7 +2,7 @@
 
 import { db } from "@/lib/firebase/firebase-admin";
 import { z } from "zod";
-import * as postmark from "postmark";
+import { postmarkClient, FROM_EMAIL } from "@/lib/postmark";
 
 // Schema for Artist Submission with robust validation
 const artistSubmissionSchema = z.object({
@@ -68,7 +68,11 @@ export async function submitArtist(formData: FormData) {
       body: JSON.stringify({
         name: validatedData.artistName,
         email: validatedData.email,
-        ig: validatedData.musicLinks || "" // Pushing the music link to the 4th column
+        ig: validatedData.musicLinks || "",
+        city: validatedData.city,
+        tracks: validatedData.numberOfTracks,
+        drive_link: validatedData.googleDriveLink || "",
+        submission_type: "Artist Registration"
       }),
     }).then(res => {
       if (!res.ok) throw new Error(`Webhook responded with status ${res.status}`);
@@ -76,10 +80,8 @@ export async function submitArtist(formData: FormData) {
     });
 
     // Initialize the client using your secure environment variable
-    const postmarkClient = new postmark.ServerClient(process.env.POSTMARK_SERVER_TOKEN || "");
-
     const postmarkPromise = postmarkClient.sendEmail({
-      "From": "cornelius@waitaminutedigital.com", // Must be your verified sender
+      "From": FROM_EMAIL, // Must be your verified sender
       "To": validatedData.email,
       "Subject": "Huncho Fest: VIP Artist Registration Confirmed",
       "HtmlBody": "<strong>Welcome to the lineup!</strong> Your slot is pending. Complete your payment to lock it in.",
