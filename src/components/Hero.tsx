@@ -18,20 +18,14 @@ export default function Hero() {
           HUNCHO FEST
         </h1>
         <p className="text-lg sm:text-xl md:text-2xl font-bold mb-10 text-white/90 uppercase tracking-widest max-w-2xl mx-auto leading-tight">
-          The Biggest Music Festival in Mobile
+          Thank you Mobile for attending the biggest music festival in the city.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-stretch sm:items-center">
           <Link
-            href="#tickets"
+            href="#newsletter"
             className="bg-gold text-charcoal px-8 py-4 text-lg md:text-xl font-black hover:bg-white transition-colors duration-300 uppercase shadow-xl shadow-gold/20"
           >
-            Get Tickets Now
-          </Link>
-          <Link
-            href="#artist-registration"
-            className="bg-purple border-2 border-purple text-white px-8 py-4 text-lg md:text-xl font-black hover:bg-transparent transition-colors duration-300 uppercase"
-          >
-            Artist Registration
+            Join the 2027 Waitlist
           </Link>
         </div>
       </div>
