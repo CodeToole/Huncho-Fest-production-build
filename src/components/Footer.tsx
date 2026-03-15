@@ -27,9 +27,7 @@ export default function Footer() {
           <div className="space-y-6">
             <p className="text-sm font-black text-gold uppercase tracking-widest">Navigation</p>
             <ul className="space-y-4 text-white/60 font-bold uppercase text-xs tracking-wider">
-              <li><Link href="#tickets" className="hover:text-white transition-colors">Tickets</Link></li>
               <li><Link href="#media" className="hover:text-white transition-colors">Media</Link></li>
-              <li><Link href="#artist-registration" className="hover:text-white transition-colors">Artists</Link></li>
               <li><Link href="#sponsorships" className="hover:text-white transition-colors">Sponsors</Link></li>
             </ul>
           </div>

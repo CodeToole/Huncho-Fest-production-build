@@ -6,9 +6,7 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   const links = [
-    { name: 'Tickets', href: '#tickets' },
     { name: 'Media', href: '#media' },
-    { name: 'Artists', href: '#artist-registration' },
   ];
 
   return (
@@ -27,12 +25,6 @@ export default function Navbar() {
             {link.name}
           </Link>
         ))}
-        <Link
-          href="#tickets"
-          className="bg-gold text-charcoal px-6 py-3 text-xs font-black rounded-full hover:bg-white transition-colors uppercase tracking-widest shadow-lg shadow-gold/20"
-        >
-          Buy Tickets
-        </Link>
       </div>
 
       {/* Mobile Menu Button */}
@@ -70,13 +62,6 @@ export default function Navbar() {
               {link.name}
             </Link>
           ))}
-          <Link
-            href="#tickets"
-            onClick={() => setIsOpen(false)}
-            className="bg-gold text-charcoal px-8 py-4 text-sm font-black rounded-full hover:bg-white transition-colors uppercase tracking-widest shadow-lg shadow-gold/20 mt-4"
-          >
-            Buy Tickets
-          </Link>
         </div>
       )}
     </nav>

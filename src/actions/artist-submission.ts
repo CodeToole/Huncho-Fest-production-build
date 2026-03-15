@@ -60,51 +60,51 @@ export async function submitArtist(formData: FormData) {
     });
 
     // Waitaminute Data Pipeline: Fire lead to Google Sheets Webhook asynchronously
-    const webhookPromise = fetch("https://script.google.com/macros/s/AKfycbw2ULk-jYXsaLzBZi-v9pDAFbMYyHcp8XUAIoxi7dzQOw71NmU11POxSRvwdS9-KOTC1g/exec", {
-      method: "POST",
-      headers: {
-        "Content-Type": "text/plain",
-      },
-      body: JSON.stringify({
-        name: validatedData.artistName,
-        email: validatedData.email,
-        ig: validatedData.musicLinks || "",
-        city: validatedData.city,
-        tracks: validatedData.numberOfTracks,
-        drive_link: validatedData.googleDriveLink || "",
-        submission_type: "Artist Registration"
-      }),
-    }).then(res => {
-      if (!res.ok) throw new Error(`Webhook responded with status ${res.status}`);
-      return res;
-    });
+    // const webhookPromise = fetch("https://script.google.com/macros/s/AKfycbw2ULk-jYXsaLzBZi-v9pDAFbMYyHcp8XUAIoxi7dzQOw71NmU11POxSRvwdS9-KOTC1g/exec", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "text/plain",
+    //   },
+    //   body: JSON.stringify({
+    //     name: validatedData.artistName,
+    //     email: validatedData.email,
+    //     ig: validatedData.musicLinks || "",
+    //     city: validatedData.city,
+    //     tracks: validatedData.numberOfTracks,
+    //     drive_link: validatedData.googleDriveLink || "",
+    //     submission_type: "Artist Registration"
+    //   }),
+    // }).then(res => {
+    //   if (!res.ok) throw new Error(`Webhook responded with status ${res.status}`);
+    //   return res;
+    // });
 
     // Initialize the client using your secure environment variable
-    const postmarkPromise = postmarkClient.sendEmail({
-      "From": FROM_EMAIL, // Must be your verified sender
-      "To": validatedData.email,
-      "Subject": "Huncho Fest: VIP Artist Registration Confirmed",
-      "HtmlBody": "<strong>Welcome to the lineup!</strong> Your slot is pending. Complete your payment to lock it in.",
-      "MessageStream": "outbound" 
-    });
+    // const postmarkPromise = postmarkClient.sendEmail({
+    //   "From": FROM_EMAIL, // Must be your verified sender
+    //   "To": validatedData.email,
+    //   "Subject": "Huncho Fest: VIP Artist Registration Confirmed",
+    //   "HtmlBody": "<strong>Welcome to the lineup!</strong> Your slot is pending. Complete your payment to lock it in.",
+    //   "MessageStream": "outbound"
+    // });
 
-    const [firestoreResult, webhookResult, emailResult] = await Promise.allSettled([
+    const [firestoreResult] = await Promise.allSettled([
       firestorePromise,
-      webhookPromise,
-      postmarkPromise,
+      // webhookPromise,
+      // postmarkPromise,
     ]);
 
     if (firestoreResult.status === "rejected") {
        throw firestoreResult.reason;
     }
 
-    if (webhookResult.status === "rejected") {
-       console.error("Webhook failed, but protecting client revenue - proceeding to checkout.", webhookResult.reason);
-    }
+    // if (webhookResult.status === "rejected") {
+    //    console.error("Webhook failed, but protecting client revenue - proceeding to checkout.", webhookResult.reason);
+    // }
 
-    if (emailResult.status === "rejected") {
-       console.error("Postmark failed, proceeding to checkout:", emailResult.reason);
-    }
+    // if (emailResult.status === "rejected") {
+    //    console.error("Postmark failed, proceeding to checkout:", emailResult.reason);
+    // }
 
     return {
       success: true,
