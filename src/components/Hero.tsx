@@ -25,7 +25,7 @@ export default function Hero() {
             href="#newsletter"
             className="bg-gold text-charcoal px-8 py-4 text-lg md:text-xl font-black hover:bg-white transition-colors duration-300 uppercase shadow-xl shadow-gold/20"
           >
-            Join the 2027 Waitlist
+            Join the Waitlist
           </Link>
         </div>
       </div>
