@@ -15,17 +15,17 @@ export default function Hero() {
 
       <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
         <h1 className="text-5xl sm:text-6xl md:text-8xl font-black mb-6 tracking-tighter text-gold animate-in fade-in slide-in-from-bottom-4 duration-1000">
-          HUNCHO FEST
+          HUNCHO FEST: MAY MADNESS
         </h1>
         <p className="text-lg sm:text-xl md:text-2xl font-bold mb-10 text-white/90 uppercase tracking-widest max-w-2xl mx-auto leading-tight">
-          Thank you Mobile for attending the biggest music festival in the city.
+          Mobile's biggest music festival returns.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-stretch sm:items-center">
           <Link
-            href="#newsletter"
+            href="#artist-registration"
             className="bg-gold text-charcoal px-8 py-4 text-lg md:text-xl font-black hover:bg-white transition-colors duration-300 uppercase shadow-xl shadow-gold/20"
           >
-            Join the Waitlist
+            SECURE YOUR SLOT
           </Link>
         </div>
       </div>
