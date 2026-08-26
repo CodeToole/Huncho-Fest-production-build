@@ -27,14 +27,6 @@ export default function StructuredData() {
       "@type": "Organization",
       "name": "Huncho Fest",
       "url": "https://hunchofest.com"
-    },
-    "offers": {
-      "@type": "Offer",
-      "url": "https://hunchofest.com/#tickets",
-      "price": "50",
-      "priceCurrency": "USD",
-      "availability": "https://schema.org/InStock",
-      "validFrom": "2026-01-01"
     }
   };
 

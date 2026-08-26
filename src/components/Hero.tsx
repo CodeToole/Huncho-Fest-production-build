@@ -1,5 +1,3 @@
-import Link from 'next/link';
-
 export default function Hero() {
   return (
     <section className="relative h-screen min-h-[600px] flex items-center justify-center bg-charcoal text-white overflow-hidden">
@@ -18,15 +16,13 @@ export default function Hero() {
           HUNCHO FEST: MAY MADNESS
         </h1>
         <p className="text-lg sm:text-xl md:text-2xl font-bold mb-10 text-white/90 uppercase tracking-widest max-w-2xl mx-auto leading-tight">
-          Mobile's biggest music festival returns.
+          Mobile&apos;s biggest music festival returns.
         </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-stretch sm:items-center">
-          <Link
-            href="#artist-registration"
-            className="bg-gold text-charcoal px-8 py-4 text-lg md:text-xl font-black hover:bg-white transition-colors duration-300 uppercase shadow-xl shadow-gold/20"
-          >
-            SECURE YOUR SLOT
-          </Link>
+        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <div className="inline-flex items-center gap-3 px-8 py-4 bg-white/10 backdrop-blur-md border border-gold/30 rounded-2xl text-gold text-lg md:text-xl font-black tracking-widest uppercase shadow-2xl">
+            <span className="w-3 h-3 rounded-full bg-gold animate-pulse"></span>
+            Huncho Fest 2026 • Mobile, AL
+          </div>
         </div>
       </div>
     </section>
