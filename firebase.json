@@ -13,7 +13,10 @@
     "rewrites": [
       {
         "source": "**",
-        "destination": "/index.html"
+        "run": {
+          "serviceId": "huncho-fest-backend",
+          "region": "us-central1"
+        }
       }
     ]
   }

@@ -1,0 +1,16 @@
+# Docker ignore file
+node_modules
+.next
+.git
+.gitignore
+.dockerignore
+.vercel
+.firebase
+.env*.local
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+README.md
+Dockerfile
