@@ -137,8 +137,8 @@ class Footer extends StatelessComponent {
                       classes:
                           'space-y-4 text-white/60 font-bold uppercase text-xs tracking-wider',
                       [
-                        li([Component.text('Mardi Gras Park')]),
-                        li([Component.text('Mobile, AL')]),
+                        li([Component.text('350 N Broad St')]),
+                        li([Component.text('Mobile, AL 36603')]),
                         li([Component.text('United States')]),
                       ],
                     ),

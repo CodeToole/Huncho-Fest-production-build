@@ -15,21 +15,22 @@ void main() {
   );
 
   runApp(Document(
-    title: 'Huncho Fest | Largest Music Festival in Mobile, AL',
+    title: 'NMBG Jay Presents: Huncho Fest | The Underground Block Party',
     meta: {
       'description':
-          'Experience the biggest music festival in Mobile, AL. Tickets, artist registration, and live media for Huncho Fest at Mardi Gras Park.',
+          'NMBG Jay Presents: Huncho Fest - The Underground Block Party on Saturday, October 10, 2026 at 350 N Broad St, Mobile, AL. \$10 entry, live music, vendor market, artist panel, and performance giveaways.',
       'viewport': 'width=device-width, initial-scale=1.0',
-      'og:title': 'Huncho Fest | Largest Music Festival in Mobile, AL',
+      'og:title':
+          'NMBG Jay Presents: Huncho Fest | The Underground Block Party',
       'og:description':
-          'The biggest music festival in the heart of Mobile, AL.',
+          'Saturday, October 10, 2026 • 3 PM TIL at 350 N Broad St, Mobile, AL. \$10 Entry.',
       'og:url': 'https://hunchofest.com',
-      'og:image': '/og-image.jpg',
+      'og:image': '/assets/flyer.jpg',
       'og:type': 'website',
       'twitter:card': 'summary_large_image',
     },
     head: [
-      link(rel: 'stylesheet', href: 'styles.css'),
+      link(rel: 'stylesheet', href: '/styles.css'),
       link(rel: 'preconnect', href: 'https://fonts.googleapis.com'),
       link(
         rel: 'preconnect',
@@ -46,31 +47,38 @@ void main() {
 {
   "@context": "https://schema.org",
   "@type": "MusicEvent",
-  "name": "Huncho Fest",
-  "description": "The biggest music festival in the heart of Mobile, AL at Mardi Gras Park.",
-  "startDate": "2026-03-15T18:00:00-05:00",
-  "endDate": "2026-03-16T00:00:00-05:00",
+  "name": "NMBG Jay Presents: Huncho Fest",
+  "description": "The Underground Block Party featuring live music, artist panel, local vendors, and free performance giveaways.",
+  "startDate": "2026-10-10T15:00:00-05:00",
+  "endDate": "2026-10-11T00:00:00-05:00",
   "eventStatus": "https://schema.org/EventScheduled",
   "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
   "location": {
     "@type": "Place",
-    "name": "Mardi Gras Park",
+    "name": "Huncho Fest Block Party Grounds",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "104-148 S Royal St",
+      "streetAddress": "350 N Broad St",
       "addressLocality": "Mobile",
       "addressRegion": "AL",
-      "postalCode": "36602",
+      "postalCode": "36603",
       "addressCountry": "US"
     }
   },
+  "offers": {
+    "@type": "Offer",
+    "price": "10",
+    "priceCurrency": "USD",
+    "url": "https://hunchofest.com",
+    "availability": "https://schema.org/InStock"
+  },
   "image": [
-    "https://hunchofest.com/og-image.jpg"
+    "https://hunchofest.com/assets/flyer.jpg"
   ],
   "organizer": {
     "@type": "Organization",
-    "name": "Huncho Fest",
-    "url": "https://hunchofest.com"
+    "name": "NMBG Jay",
+    "url": "https://instagram.com/nmbgjay"
   }
 }
 </script>
