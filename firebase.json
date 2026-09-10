@@ -1,23 +1,9 @@
 {
-  "firestore": {
-    "rules": "firestore.rules",
-    "indexes": "firestore.indexes.json"
-  },
   "hosting": {
-    "public": "public",
+    "public": "build/jaspr",
     "ignore": [
       "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ],
-    "rewrites": [
-      {
-        "source": "**",
-        "run": {
-          "serviceId": "huncho-fest-backend",
-          "region": "us-central1"
-        }
-      }
+      "**/.*"
     ]
   }
 }

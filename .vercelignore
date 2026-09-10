@@ -1,6 +1,0 @@
-.env*
-service-account*.json
-.next
-node_modules
-.firebase
-*.pem
