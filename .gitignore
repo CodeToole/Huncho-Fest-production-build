@@ -1,6 +1,28 @@
-# Dart / Jaspr
+# Dependencies
+node_modules/
+
+# Next.js
+.next/
+out/
+
+# Environment
+.env*
+
+# Vercel
+.vercel
+
+# Dart / Jaspr (legacy)
 .dart_tool/
 .packages
 build/
+
+# Firebase (legacy)
 .firebase/
-.env*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+*.swp
+*.swo
