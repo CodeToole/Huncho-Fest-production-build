@@ -2,7 +2,7 @@
 
 **NMBG Jay Presents: Huncho Fest — The Underground Block Party**
 
-📅 October 10, 2026 (10/10/26) · 📍 350 N Broad St, Mobile, AL 36603 · 💰 $10 Entry · ⏰ 3 PM – TIL
+📅 October 16, 2026 (10/16/26) · 📍 350 N Broad St, Mobile, AL 36603 · 💰 $10 Entry · ⏰ 3 PM – TIL
 
 ## Tech Stack
 

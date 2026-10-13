@@ -53,7 +53,7 @@ export function Hero() {
                   <line x1="8" x2="8" y1="2" y2="6" />
                   <line x1="3" x2="21" y1="10" y2="10" />
                 </svg>
-                October 10, 2026 (10/10/26)
+                October 16, 2026 (10/16/26)
               </div>
 
               {/* Time Badge */}

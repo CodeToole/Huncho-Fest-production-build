@@ -11,11 +11,11 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "NMBG Jay Presents: Huncho Fest | The Underground Block Party",
   description:
-    "NMBG Jay Presents: Huncho Fest - The Underground Block Party on Saturday, October 10, 2026 at 350 N Broad St, Mobile, AL. $10 entry, live music, vendor market, artist panel, and performance giveaways.",
+    "NMBG Jay Presents: Huncho Fest - The Underground Block Party on Friday, October 16, 2026 at 350 N Broad St, Mobile, AL. $10 entry, live music, vendor market, artist panel, and performance giveaways.",
   openGraph: {
     title: "NMBG Jay Presents: Huncho Fest | The Underground Block Party",
     description:
-      "Saturday, October 10, 2026 • 3 PM TIL at 350 N Broad St, Mobile, AL. $10 Entry.",
+      "Friday, October 16, 2026 • 3 PM TIL at 350 N Broad St, Mobile, AL. $10 Entry.",
     url: "https://hunchofest.com",
     siteName: "Huncho Fest",
     images: [
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "NMBG Jay Presents: Huncho Fest | The Underground Block Party",
     description:
-      "Saturday, October 10, 2026 • 3 PM TIL at 350 N Broad St, Mobile, AL. $10 Entry.",
+      "Friday, October 16, 2026 • 3 PM TIL at 350 N Broad St, Mobile, AL. $10 Entry.",
     images: ["https://hunchofest.com/flyer.jpg"],
   },
   metadataBase: new URL("https://hunchofest.com"),
@@ -44,8 +44,8 @@ const jsonLd = {
   name: "NMBG Jay Presents: Huncho Fest",
   description:
     "The Underground Block Party featuring live music, artist panel, local vendors, and free performance giveaways.",
-  startDate: "2026-10-10T15:00:00-05:00",
-  endDate: "2026-10-11T00:00:00-05:00",
+  startDate: "2026-10-16T15:00:00-05:00",
+  endDate: "2026-10-17T00:00:00-05:00",
   eventStatus: "https://schema.org/EventScheduled",
   eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
   location: {
