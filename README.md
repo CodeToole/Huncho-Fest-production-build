@@ -6,7 +6,7 @@
 
 ## Tech Stack
 
-- **Framework**: [Next.js 15](https://nextjs.org/) (App Router, Static Export)
+- **Framework**: [Next.js 16](https://nextjs.org/) (App Router, Static Export)
 - **Language**: TypeScript
 - **Styling**: [Tailwind CSS v4](https://tailwindcss.com/)
 - **Deployment**: [Vercel](https://vercel.com/) (automatic on push to `main`)
