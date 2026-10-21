@@ -30,7 +30,7 @@ export function Hero() {
             <h1 className="hero-title">HUNCHO FEST</h1>
 
             {/* Subtitle */}
-            <p className="hero-subtitle">THE UNDERGROUND BLOCK PARTY</p>
+            <p className="hero-subtitle">ALABAMA MUSIC BOX · MOBILE, AL</p>
 
             {/* Event Details Badges */}
             <div className="hero-details-row">
@@ -53,7 +53,7 @@ export function Hero() {
                   <line x1="8" x2="8" y1="2" y2="6" />
                   <line x1="3" x2="21" y1="10" y2="10" />
                 </svg>
-                October 16, 2026 (10/16/26)
+                November 28, 2026 (Saturday)
               </div>
 
               {/* Time Badge */}
@@ -73,7 +73,7 @@ export function Hero() {
                   <circle cx="12" cy="12" r="10" />
                   <polyline points="12 6 12 12 16 14" />
                 </svg>
-                3 PM – TIL
+                6 PM
               </div>
 
               {/* Price Badge */}
@@ -93,12 +93,12 @@ export function Hero() {
                   <line x1="12" x2="12" y1="2" y2="22" />
                   <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
                 </svg>
-                $10 Entry
+                $15 Tickets
               </div>
 
               {/* Location Link Badge */}
               <a
-                href="https://maps.google.com/?q=350+N+Broad+St,+Mobile,+AL+36603"
+                href="https://maps.google.com/?q=659+Conti+St,+Mobile,+AL+36602"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="detail-badge link-badge"
@@ -118,21 +118,22 @@ export function Hero() {
                   <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
                   <circle cx="12" cy="10" r="3" />
                 </svg>
-                350 N Broad St, Mobile, AL 36603
+                659 Conti St, Mobile, AL 36602
               </a>
             </div>
 
             {/* Feature Highlights */}
-            <div className="hero-features-label">EVENT HIGHLIGHTS</div>
+            <div className="hero-features-label">LIVE AT ALABAMA MUSIC BOX</div>
             <div className="hero-features-row">
-              <span className="feature-tag">Free Performance Giveaways</span>
+              <span className="feature-tag">DJ Oktoba</span>
               <span className="feature-tag">Live Music</span>
-              <span className="feature-tag">Artist Panel</span>
-              <span className="feature-tag">Local Vendors</span>
+              <span className="feature-tag">November 28</span>
+              <span className="feature-tag">Tickets Available Now</span>
             </div>
 
             {/* Action CTAs */}
             <div className="hero-actions">
+              <a href="https://www.ticketweb.com/event/hunchofest-presented-by-nmbg-jay-alabama-music-box-tickets/14372824" target="_blank" rel="noopener noreferrer" className="cta-btn cta-instagram">Buy Tickets — $15 ↗</a>
               <a
                 href="https://instagram.com/nmbgjay"
                 target="_blank"
@@ -165,7 +166,7 @@ export function Hero() {
               <img
                 src="/flyer.jpg"
                 className="flyer-image"
-                alt="NMBG Jay Presents: Huncho Fest - The Underground Block Party Official Flyer"
+                alt="NMBG Jay Presents Huncho Fest at Alabama Music Box, November 28, 2026, 6 PM, $15 tickets"
                 loading="eager"
               />
             </div>
