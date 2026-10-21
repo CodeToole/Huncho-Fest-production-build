@@ -2,9 +2,9 @@
 
 @theme {
   --color-charcoal: #0a0a0a;
-  --color-gold: #ffb800;
-  --color-acid: #39ff14;
-  --color-purple: #701aff;
+  --color-gold: #e9f7ff;
+  --color-acid: #19baff;
+  --color-purple: #1769d6;
 
   --font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
     Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
@@ -170,8 +170,8 @@ ul {
   gap: 8px;
   padding: 6px 14px;
   border-radius: 9999px;
-  background: rgba(255, 193, 7, 0.1);
-  border: 1px solid rgba(255, 193, 7, 0.35);
+  background: rgba(105, 204, 255, 0.1);
+  border: 1px solid rgba(105, 204, 255, 0.35);
   margin-bottom: 14px;
 }
 
@@ -210,7 +210,7 @@ ul {
   letter-spacing: 0.05em;
   text-transform: uppercase;
   margin: 0 0 22px 0;
-  text-shadow: 0 0 20px rgba(57, 255, 20, 0.3);
+  text-shadow: 0 0 20px rgba(25, 186, 255, 0.3);
 }
 
 /* Detail badges */
@@ -249,14 +249,14 @@ ul {
 }
 
 .detail-badge.highlight-acid {
-  background: rgba(57, 255, 20, 0.08);
-  border: 1px solid rgba(57, 255, 20, 0.4);
+  background: rgba(25, 186, 255, 0.08);
+  border: 1px solid rgba(25, 186, 255, 0.4);
   color: #ffffff;
 }
 
 .detail-badge.highlight-gold {
-  background: rgba(255, 193, 7, 0.12);
-  border: 1px solid rgba(255, 193, 7, 0.5);
+  background: rgba(105, 204, 255, 0.12);
+  border: 1px solid rgba(105, 204, 255, 0.5);
   color: var(--color-gold);
   font-weight: 900;
 }
@@ -275,10 +275,10 @@ ul {
 
 .detail-badge.link-badge:hover {
   border-color: var(--color-acid);
-  background: rgba(57, 255, 20, 0.15);
+  background: rgba(25, 186, 255, 0.15);
   color: #ffffff;
   transform: translateY(-2px);
-  box-shadow: 0 6px 15px rgba(57, 255, 20, 0.2);
+  box-shadow: 0 6px 15px rgba(25, 186, 255, 0.2);
 }
 
 /* Feature highlights */
@@ -322,7 +322,7 @@ ul {
 }
 
 .feature-tag:hover {
-  border-color: rgba(57, 255, 20, 0.5);
+  border-color: rgba(25, 186, 255, 0.5);
   color: #ffffff;
 }
 
@@ -358,15 +358,15 @@ ul {
 }
 
 .cta-instagram {
-  background: linear-gradient(135deg, #39ff14 0%, #2ecc71 100%);
+  background: linear-gradient(135deg, #19baff 0%, #1878ec 100%);
   color: #000000;
-  box-shadow: 0 10px 25px -5px rgba(57, 255, 20, 0.45);
+  box-shadow: 0 10px 25px -5px rgba(25, 186, 255, 0.45);
   border: none;
 }
 
 .cta-instagram:hover {
   transform: translateY(-2px);
-  box-shadow: 0 15px 35px -5px rgba(57, 255, 20, 0.65);
+  box-shadow: 0 15px 35px -5px rgba(25, 186, 255, 0.65);
   filter: brightness(1.08);
   color: #000000;
 }
@@ -385,7 +385,7 @@ ul {
   background: rgba(255, 255, 255, 0.12);
   border-color: var(--color-gold);
   color: var(--color-gold);
-  box-shadow: 0 6px 20px rgba(255, 193, 7, 0.25);
+  box-shadow: 0 6px 20px rgba(105, 204, 255, 0.25);
 }
 
 /* Right column flyer showcase */
@@ -399,13 +399,13 @@ ul {
 .flyer-card {
   position: relative;
   width: 100%;
-  max-width: 260px;
+  max-width: 360px;
   border-radius: 16px;
   overflow: hidden;
-  border: 1px solid rgba(255, 193, 7, 0.35);
+  border: 1px solid rgba(105, 204, 255, 0.35);
   box-shadow:
     0 20px 40px -10px rgba(0, 0, 0, 0.85),
-    0 0 25px rgba(57, 255, 20, 0.15);
+    0 0 25px rgba(25, 186, 255, 0.15);
   background: #050505;
   transition:
     transform 0.3s ease,
@@ -421,13 +421,13 @@ ul {
   border-color: var(--color-acid);
   box-shadow:
     0 25px 50px -10px rgba(0, 0, 0, 0.95),
-    0 0 35px rgba(57, 255, 20, 0.3);
+    0 0 35px rgba(25, 186, 255, 0.3);
 }
 
 .flyer-image {
   width: 100%;
   height: auto;
-  max-height: 350px;
+  max-height: 560px;
   object-fit: contain;
   display: block;
 }
