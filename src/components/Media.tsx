@@ -3,20 +3,20 @@ export function Media() {
     <section id="media" className="py-24 bg-charcoal text-white relative">
       <div className="absolute inset-0 bg-purple/5 pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
+      <div className="media-inner max-w-7xl mx-auto px-6 relative z-10 w-full flex flex-col items-center text-center">
         {/* Section Heading */}
-        <h2 className="text-4xl md:text-6xl font-black text-gold mb-4 uppercase text-center tracking-tighter">
+        <h2 className="text-4xl md:text-6xl font-black text-gold mb-4 uppercase text-center tracking-tighter w-full">
           Media
         </h2>
-        <p className="text-white/60 font-bold uppercase text-xs tracking-[0.3em] mb-12 text-center">
+        <p className="text-white/60 font-bold uppercase text-xs tracking-[0.3em] mb-12 text-center w-full">
           Experience the Vibes
         </p>
 
         {/* YouTube Embeds */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-20">
+        <div className="media-grid grid grid-cols-1 md:grid-cols-2 gap-10 mb-20 w-full max-w-5xl mx-auto">
           <iframe
             src="https://www.youtube.com/embed/Bs6K408y_38?si=bGuqADA3YdxnSjps"
-            className="w-full aspect-video rounded-xl"
+            className="w-full aspect-video rounded-xl shadow-2xl"
             title="Fox 10 News Interview"
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -25,7 +25,7 @@ export function Media() {
           />
           <iframe
             src="https://www.youtube.com/embed/YYTiVtlXGlU?si=xktl88nNj9eYLm1H"
-            className="w-full aspect-video rounded-xl"
+            className="w-full aspect-video rounded-xl shadow-2xl"
             title="Huncho Fest Event Recap"
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -35,7 +35,7 @@ export function Media() {
         </div>
 
         {/* Stream the Vibe */}
-        <div className="flex flex-col md:flex-row gap-8 justify-center items-center text-center py-12 border-t border-white/5">
+        <div className="flex flex-col md:flex-row gap-8 justify-center items-center text-center py-12 border-t border-white/5 w-full">
           <p className="text-2xl font-black text-white mr-4 uppercase tracking-tighter italic">
             Stream the Vibe
           </p>

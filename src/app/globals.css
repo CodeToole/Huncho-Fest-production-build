@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@source "../**";
 
 @theme {
   --color-charcoal: #0a0a0a;
@@ -445,4 +446,42 @@ section#hero,
 section:first-of-type {
   content-visibility: visible;
   contain-intrinsic-size: auto;
+}
+
+/* ================================================================
+   MEDIA SECTION CENTERED LAYOUT
+   ================================================================ */
+
+#media {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#media .media-inner {
+  width: 100%;
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+#media .media-grid {
+  width: 100%;
+  max-width: 1080px;
+  margin-left: auto;
+  margin-right: auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+}
+
+@media (min-width: 768px) {
+  #media .media-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
