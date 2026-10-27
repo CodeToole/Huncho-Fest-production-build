@@ -34,4 +34,4 @@ Push to `main` → Vercel deploys automatically to [hunchofest.com](https://hunc
 
 ---
 
-*Website by Cornelius Bralor Protocol · © 2026 Huncho Fest*
+*Website by [Waitaminutedigital](https://waitaminutedigital.com/) · © 2026 Huncho Fest*

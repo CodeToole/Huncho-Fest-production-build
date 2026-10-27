@@ -26,3 +26,6 @@ Thumbs.db
 # IDE
 *.swp
 *.swo
+
+# Worktrees
+.worktrees/

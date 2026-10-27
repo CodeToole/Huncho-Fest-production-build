@@ -144,7 +144,15 @@ export function Footer() {
           © {currentYear} Huncho Fest. All Rights Reserved.
         </p>
         <p className="text-white/40 text-xs font-bold uppercase tracking-widest">
-          Website by Cornelius Bralor Protocol
+          Website by{" "}
+          <a
+            href="https://waitaminutedigital.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-white underline underline-offset-4 decoration-white/20 hover:decoration-white transition-colors"
+          >
+            Waitaminutedigital
+          </a>
         </p>
       </div>
     </footer>
