@@ -9,20 +9,20 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "NMBG Jay Presents: Huncho Fest | The Underground Block Party",
+  title: "NMBG Jay Presents: Huncho Fest | Alabama Music Box",
   description:
-    "NMBG Jay Presents: Huncho Fest - The Underground Block Party on Friday, October 16, 2026 at 350 N Broad St, Mobile, AL. $10 entry, live music, vendor market, artist panel, and performance giveaways.",
+    "NMBG Jay Presents: Huncho Fest at Alabama Music Box on Saturday, November 28, 2026 at 659 Conti St, Mobile, AL 36602. $15 tickets, featuring DJ Oktoba, live music, vendor market, and panel.",
   openGraph: {
-    title: "NMBG Jay Presents: Huncho Fest | The Underground Block Party",
+    title: "NMBG Jay Presents: Huncho Fest | Alabama Music Box",
     description:
-      "Friday, October 16, 2026 • 3 PM TIL at 350 N Broad St, Mobile, AL. $10 Entry.",
+      "Saturday, November 28, 2026 • 6 PM at Alabama Music Box (659 Conti St, Mobile, AL 36602). $15 Tickets.",
     url: "https://hunchofest.com",
     siteName: "Huncho Fest",
     images: [
       {
         url: "https://hunchofest.com/flyer.jpg",
-        width: 1200,
-        height: 630,
+        width: 791,
+        height: 1024,
         alt: "Huncho Fest Official Flyer",
       },
     ],
@@ -30,9 +30,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "NMBG Jay Presents: Huncho Fest | The Underground Block Party",
+    title: "NMBG Jay Presents: Huncho Fest | Alabama Music Box",
     description:
-      "Friday, October 16, 2026 • 3 PM TIL at 350 N Broad St, Mobile, AL. $10 Entry.",
+      "Saturday, November 28, 2026 • 6 PM at Alabama Music Box (659 Conti St, Mobile, AL 36602). $15 Tickets.",
     images: ["https://hunchofest.com/flyer.jpg"],
   },
   metadataBase: new URL("https://hunchofest.com"),
@@ -43,28 +43,28 @@ const jsonLd = {
   "@type": "MusicEvent",
   name: "NMBG Jay Presents: Huncho Fest",
   description:
-    "The Underground Block Party featuring live music, artist panel, local vendors, and free performance giveaways.",
-  startDate: "2026-10-16T15:00:00-05:00",
-  endDate: "2026-10-17T00:00:00-05:00",
+    "NMBG Jay Presents: Huncho Fest featuring DJ Oktoba, live music, artist panel, and local vendors.",
+  startDate: "2026-11-28T18:00:00-06:00",
+  endDate: "2026-11-29T00:00:00-06:00",
   eventStatus: "https://schema.org/EventScheduled",
   eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
   location: {
     "@type": "Place",
-    name: "Huncho Fest Block Party Grounds",
+    name: "Alabama Music Box",
     address: {
       "@type": "PostalAddress",
-      streetAddress: "350 N Broad St",
+      streetAddress: "659 Conti St",
       addressLocality: "Mobile",
       addressRegion: "AL",
-      postalCode: "36603",
+      postalCode: "36602",
       addressCountry: "US",
     },
   },
   offers: {
     "@type": "Offer",
-    price: "10",
+    price: "15",
     priceCurrency: "USD",
-    url: "https://hunchofest.com",
+    url: "https://www.ticketweb.com/event/hunchofest-presented-by-nmbg-jay-alabama-music-box-tickets/14372824",
     availability: "https://schema.org/InStock",
   },
   image: ["https://hunchofest.com/flyer.jpg"],

@@ -129,8 +129,9 @@ export function Footer() {
               Location
             </p>
             <ul className="space-y-4 text-white/60 font-bold uppercase text-xs tracking-wider">
-              <li>350 N Broad St</li>
-              <li>Mobile, AL 36603</li>
+              <li>Alabama Music Box</li>
+              <li>659 Conti St</li>
+              <li>Mobile, AL 36602</li>
               <li>United States</li>
             </ul>
           </div>
